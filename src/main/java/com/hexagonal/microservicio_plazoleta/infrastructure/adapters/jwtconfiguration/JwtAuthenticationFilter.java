@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             final String authHeader = request.getHeader(AUTHORIZATION);
             final String jwt;
-            final String userId; // sub
+            final String userId;
             final String userRole;
 
             if (authHeader == null || !authHeader.startsWith(BEARER)) {
@@ -43,18 +43,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            jwt = authHeader.substring(SEVEN); // Extraer el token JWT
-            userId = jwtService.extractUsername(jwt); // Extraer el `sub`
-            userRole = jwtService.extractRol(jwt); // Extraer el `rol`
+            jwt = authHeader.substring(SEVEN);
+            userId = jwtService.extractUsername(jwt);
+            userRole = jwtService.extractRol(jwt);
 
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 List<GrantedAuthority> authorities = Collections.singletonList(
                         new SimpleGrantedAuthority(ROLE + userRole)
                 );
 
-                // Establecer el ID del usuario (sub) como principal
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userId, // Esto será el Principal
+                        userId,
                         null,
                         authorities
                 );
