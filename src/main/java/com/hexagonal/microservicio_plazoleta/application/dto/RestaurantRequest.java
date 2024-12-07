@@ -31,6 +31,7 @@ public class RestaurantRequest {
     @URL(message = URL_PAST)
     private String urlLogo;
 
+    @NotNull(message = OWNER_REQUIRED)
     private Long ownerId;
 
 }

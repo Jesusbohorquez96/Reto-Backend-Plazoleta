@@ -21,6 +21,7 @@ public class ValidationConstants {
     public static final String PHONE_NUMBER = "^\\+[0-9]{1,13}$";
     public static final String NUMBERS_NAME = "^(?!\\d+$)[\\w\\s]+$";
     public static final String PRIVATE = "294A404E635266556A586E327235753878214125442A472D4B6150645367566B";
+    public static final String OWNER_REQUIRED = "The Owner ID is required";
 
     public static final String MESSAGE = "message";
     public static final String RESTAURANT_REQUIRED = "Restaurant ID is required";
@@ -70,6 +71,7 @@ public class ValidationConstants {
     public static final String DISHES_API = "Dishes API";
     public static final String DISHES_API_AUT= "/dishes/**";
     public static final String ROL_OWNER = "hasAnyRole('propietario')";
+    public static final String ROL_ADMIN = "hasAnyRole('admin')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
 
     public static final String JSON = "application/json";

@@ -3,6 +3,7 @@ package com.hexagonal.microservicio_plazoleta.domain.usecase;
 import com.hexagonal.microservicio_plazoleta.domain.api.IRestaurantServicePort;
 import com.hexagonal.microservicio_plazoleta.domain.model.Restaurant;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IRestaurantPersistencePort;
+
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 public abstract class RestaurantUseCase implements IRestaurantServicePort {
