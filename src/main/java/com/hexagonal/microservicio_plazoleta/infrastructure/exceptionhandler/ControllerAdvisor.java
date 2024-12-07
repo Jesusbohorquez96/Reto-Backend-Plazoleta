@@ -3,6 +3,7 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.exceptionhandler;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.AlreadyExistsException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.NoDataFoundException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.NotFoundException;
+import com.hexagonal.microservicio_plazoleta.infrastructure.exception.UnauthorizedException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,5 +102,10 @@ public class ControllerAdvisor {
                         STATUS, String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()),
                         MESSAGE, OCCURRED_UNEXPECTED
                 ));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> handleUnauthorizedException(UnauthorizedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
 }

@@ -32,4 +32,5 @@ public class RestaurantEntity {
 
     @Column(nullable = false)
     private Long ownerId;
+
 }
