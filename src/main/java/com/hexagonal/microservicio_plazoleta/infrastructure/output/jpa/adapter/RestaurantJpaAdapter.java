@@ -6,6 +6,7 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.Re
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 
 @RequiredArgsConstructor
 public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
@@ -28,5 +29,11 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
     @Override
     public boolean existsByNit(Integer nit) {
         return restaurantRepository.existsByNit(nit);
+    }
+
+    @Override
+    public Page<Restaurant> getAllRestaurants(Pageable pageable) {
+        return restaurantRepository.findAll(pageable)
+                .map(restaurantEntityMapper::toRestaurant);
     }
 }
