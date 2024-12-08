@@ -1,9 +1,11 @@
 package com.hexagonal.microservicio_plazoleta.application.handler;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.ListRestaurantResponse;
 import com.hexagonal.microservicio_plazoleta.application.dto.RestaurantRequest;
 import com.hexagonal.microservicio_plazoleta.application.mapper.RestaurantRequestMapper;
 import com.hexagonal.microservicio_plazoleta.domain.api.IRestaurantServicePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,5 +18,10 @@ public class RestaurantHandler implements IRestaurantHandler {
     @Override
     public void saveRestaurant(RestaurantRequest restaurantRequest) {
         restaurantServicePort.saveRestaurant(restaurantRequestMapper.toRestaurant(restaurantRequest));
+    }
+
+    @Override
+    public Page<ListRestaurantResponse> listRestaurants(Pageable pageable) {
+        return restaurantServicePort.listRestaurants(pageable);
     }
 }

@@ -2,9 +2,8 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.reposito
 
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.DishesEntity;
 import feign.Param;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.repository.*;
 
 import java.util.Optional;
 
@@ -16,4 +15,10 @@ public interface IDishesRepository extends JpaRepository<DishesEntity, Long> {
     @Modifying
     @Query("UPDATE DishesEntity d SET d.active = :active WHERE d.id = :dishId")
     void updateActiveStatus(@Param("dishId") Long dishId, @Param("active") Boolean active);
+
+    Page<DishesEntity> findByRestaurantId(Long restaurantId, Pageable pageable);
+
+    Page<DishesEntity> findByRestaurantIdAndCategory(Long restaurantId, String category, Pageable pageable);
+
+    boolean existsByNameAndRestaurantId(String name, Long restaurantId);
 }

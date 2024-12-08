@@ -76,6 +76,7 @@ public class ValidationConstants {
     public static final String DISHES_API_AUT= "/dishes/**";
     public static final String ROL_OWNER = "hasAnyRole('propietario')";
     public static final String ROL_ADMIN = "hasAnyRole('admin')";
+    public static final String ROL_CUSTOMER = "hasAnyRole('cliente')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
 
 

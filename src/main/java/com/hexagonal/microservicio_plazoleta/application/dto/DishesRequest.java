@@ -30,4 +30,5 @@ public class DishesRequest {
 
     @NotNull(message = RESTAURANT_REQUIRED)
     private Long restaurantId;
+
 }

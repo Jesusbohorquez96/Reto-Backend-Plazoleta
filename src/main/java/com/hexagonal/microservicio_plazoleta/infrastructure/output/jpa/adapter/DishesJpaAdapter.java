@@ -7,11 +7,15 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.Di
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IDishesRepository;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
+@Component
 public class DishesJpaAdapter implements IDishesPersistencePort {
 
     private final IRestaurantRepository restaurantRepository;
@@ -42,5 +46,22 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
         } else {
             throw new IllegalArgumentException("Dish not found");
         }
+    }
+
+    @Override
+    public boolean existsByNameAndRestaurantId(String name, Long restaurantId) {
+        return dishesRepository.existsByNameAndRestaurantId(name, restaurantId);
+    }
+
+    @Override
+    public Page<Dishes> findByRestaurantId(Long restaurantId, Pageable pageable) {
+        return dishesRepository.findByRestaurantId(restaurantId, pageable)
+                .map(dishesEntityMapper::toDishes);
+    }
+
+    @Override
+    public Page<Dishes> findByRestaurantIdAndCategory(Long restaurantId, String category, Pageable pageable) {
+        return dishesRepository.findByRestaurantIdAndCategory(restaurantId, category, pageable)
+                .map(dishesEntityMapper::toDishes);
     }
 }
