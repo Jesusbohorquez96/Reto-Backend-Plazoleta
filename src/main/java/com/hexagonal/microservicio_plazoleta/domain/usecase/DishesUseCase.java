@@ -24,4 +24,29 @@ public class DishesUseCase implements IDishesServicePort {
         dishesPersistencePort.saveDishes(dishes);
     }
 
+    @Override
+    public void updateDish(Long dishId, Integer price, String description, Long ownerId) {
+        Dishes dish = dishesPersistencePort.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUND));
+        if (!dish.getOwnerId().equals(ownerId)) {
+            throw new UnauthorizedException(OWNER_NOT_DISH);
+        }
+        if (price != null) {
+            dish.setPrice(price);
+        }
+        if (description != null) {
+            dish.setDescription(description);
+        }
+        dishesPersistencePort.saveDishes(dish);
+    }
+
+    @Override
+    public void updateDishStatus(Long dishId, Boolean active, Long ownerId) {
+        Dishes dish = dishesPersistencePort.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUND));
+        if (!dish.getOwnerId().equals(ownerId)) {
+            throw new UnauthorizedException(OWNER_NOT_DISH);
+        }
+        dishesPersistencePort.updateDishStatus(dishId, active);
+    }
 }

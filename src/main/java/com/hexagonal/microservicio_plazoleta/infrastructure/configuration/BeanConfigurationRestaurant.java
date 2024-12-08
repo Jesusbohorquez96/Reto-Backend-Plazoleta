@@ -4,6 +4,7 @@ import com.hexagonal.microservicio_plazoleta.domain.api.IRestaurantServicePort;
 import com.hexagonal.microservicio_plazoleta.domain.model.Restaurant;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IRestaurantPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.usecase.RestaurantUseCase;
+import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.feign.UsersClient;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.adapter.RestaurantJpaAdapter;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;

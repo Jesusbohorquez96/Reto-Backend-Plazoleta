@@ -15,10 +15,11 @@ import static org.mapstruct.MappingConstants.ComponentModel.*;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface DishesEntityMapper {
 
-    @Mapping(source =  "restaurantId",target = "restaurant")
+    @Mapping(source = "restaurantId", target = "restaurant")
     DishesEntity toEntity(Dishes dishesModel);
 
     @Mapping(source = "restaurant.id", target = "restaurantId")
+    @Mapping(source = "restaurant.ownerId", target = "ownerId")
     Dishes toDishes(DishesEntity dishesEntity);
 
     default RestaurantEntity mapRestaurant(Long restaurantId) {

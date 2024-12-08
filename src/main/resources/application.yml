@@ -1,6 +1,9 @@
+app:
+  appdescription: 'microservicio plazoleta'
+  appversion: '1.0.0'
 
 server:
-  port: 8088
+  port: 8086
 
 spring:
   devtools:
@@ -25,5 +28,8 @@ spring:
       port: 27017
       database: microservice_plazoleta
 
-  appdescription: 'Descripcion de mi aplicacion'
-  appversion: '1.0.0'
+  cloud:
+    config:
+      enabled: false
+
+debug: true

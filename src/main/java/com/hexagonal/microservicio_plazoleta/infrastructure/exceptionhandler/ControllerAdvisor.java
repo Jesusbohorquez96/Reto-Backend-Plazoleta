@@ -36,8 +36,8 @@ public class ControllerAdvisor {
         Map<String, Object> response = new HashMap<>();
         response.put(ERRORS, errors);
         response.put(STATUS, HttpStatus.BAD_REQUEST.value());
-        response.put(MESSAGE, VALIDATION_FAILED);
 
+        response.put(MESSAGE, VALIDATION_FAILED);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

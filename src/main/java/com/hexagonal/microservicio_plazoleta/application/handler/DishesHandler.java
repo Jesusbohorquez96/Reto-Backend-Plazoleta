@@ -1,6 +1,8 @@
 package com.hexagonal.microservicio_plazoleta.application.handler;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.DishStatusUpdateRequest;
 import com.hexagonal.microservicio_plazoleta.application.dto.DishesRequest;
+import com.hexagonal.microservicio_plazoleta.application.dto.DishesUpdateRequest;
 import com.hexagonal.microservicio_plazoleta.application.mapper.DishesRequestMapper;
 import com.hexagonal.microservicio_plazoleta.domain.api.IDishesServicePort;
 import com.hexagonal.microservicio_plazoleta.domain.model.Dishes;
@@ -20,5 +22,17 @@ public class DishesHandler implements IDishesHandler{
         String ownerId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         Dishes dishes = dishesRequestMapper.toDishes(dishesRequest, Long.parseLong(ownerId));
         dishesServicePort.saveDishes(dishes);
+    }
+
+    @Override
+    public void updateDish(Long dishId, DishesUpdateRequest request) {
+        String ownerId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        dishesServicePort.updateDish(dishId, request.getPrice(), request.getDescription(), Long.parseLong(ownerId));
+    }
+
+    @Override
+    public void updateDishStatus(Long dishId, DishStatusUpdateRequest request) {
+        String ownerId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        dishesServicePort.updateDishStatus(dishId, request.getActive(), Long.parseLong(ownerId));
     }
 }
