@@ -9,4 +9,5 @@ public interface IDishesPersistencePort {
     void saveDishes(Dishes dishes);
     boolean isRestaurantOwnedByUser(Long restaurantId, Long ownerId);
     Optional<Dishes> findById(Long id);
+    void updateDishStatus(Long dishId, Boolean active);
 }

@@ -8,6 +8,7 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repositor
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -32,5 +33,15 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
     @Override
     public Optional<Dishes> findById(Long id) {
         return dishesRepository.findByIdWithOwner(id).map(dishesEntityMapper::toDishes);
+    }
+
+    @Override
+    @Transactional
+    public void updateDishStatus(Long dishId, Boolean active) {
+        if (dishesRepository.existsById(dishId)) {
+            dishesRepository.updateActiveStatus(dishId, active);
+        } else {
+            throw new IllegalArgumentException("Dish not found");
+        }
     }
 }
