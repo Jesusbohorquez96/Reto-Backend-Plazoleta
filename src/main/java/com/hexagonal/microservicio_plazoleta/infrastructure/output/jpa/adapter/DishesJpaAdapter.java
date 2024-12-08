@@ -8,6 +8,8 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repositor
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class DishesJpaAdapter implements IDishesPersistencePort {
 
@@ -27,4 +29,8 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
         return restaurantRepository.existsByIdAndOwnerId(restaurantId, ownerId);
     }
 
+    @Override
+    public Optional<Dishes> findById(Long id) {
+        return dishesRepository.findByIdWithOwner(id).map(dishesEntityMapper::toDishes);
+    }
 }

@@ -47,6 +47,8 @@ public class ValidationConstants {
     public static final String ROLE =  "ROLE_";
     public static final String INVALID_JWT = "Invalid or malformed JWT token";
 
+    public static final String OWNER_NOT_DISH = "You are not the owner of this dish.";
+    public static final String DISH_NOT_FOUND = "The not found";
     public static final String V3_API = "/v3/api-docs/**";
     public static final String SWAGGER_UI = "/swagger-ui.html";
     public static final String SWAGGER_UI_RESOURCES = "/swagger-ui/**";
@@ -59,6 +61,8 @@ public class ValidationConstants {
     public static final String REJECTED_VALUE = "rejectedValue";
     public static final String NULL = "null";
     public static final String VALIDATION_FAILED = "Validation failed for one or more fields";
+
+    public static final String ROOD_ID = "/{id}";
 
     public static final String INTERNAL_SERVER = "Internal server error occurred";
     public static final String OCCURRED_UNEXPECTED = "An unexpected error occurred";
@@ -73,6 +77,7 @@ public class ValidationConstants {
     public static final String ROL_OWNER = "hasAnyRole('propietario')";
     public static final String ROL_ADMIN = "hasAnyRole('admin')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
+
 
     public static final String JSON = "application/json";
     public static final String ERROR_JWT = "{ \"error\": \"Access denied: Invalid or malformed JWT token\" }";
