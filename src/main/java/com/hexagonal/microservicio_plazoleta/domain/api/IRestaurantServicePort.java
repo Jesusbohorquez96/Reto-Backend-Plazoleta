@@ -9,4 +9,5 @@ public interface IRestaurantServicePort {
     void saveRestaurant(Restaurant restaurant);
 
     Page<ListRestaurantResponse> listRestaurants(Pageable pageable);
+
 }

@@ -8,6 +8,6 @@ public interface IRestaurantPersistencePort {
     boolean existsByName(String name);
     boolean existsByNit(Integer nit);
     Restaurant saveRestaurant(Restaurant restaurant);
-
     Page<Restaurant> getAllRestaurants(Pageable pageable);
+
 }

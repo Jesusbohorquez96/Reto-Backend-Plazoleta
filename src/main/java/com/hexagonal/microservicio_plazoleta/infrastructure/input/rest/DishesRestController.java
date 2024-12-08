@@ -1,12 +1,12 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
-import com.hexagonal.microservicio_plazoleta.application.dto.DishStatusUpdateRequest;
-import com.hexagonal.microservicio_plazoleta.application.dto.DishesRequest;
-import com.hexagonal.microservicio_plazoleta.application.dto.DishesUpdateRequest;
+import com.hexagonal.microservicio_plazoleta.application.dto.*;
 import com.hexagonal.microservicio_plazoleta.application.handler.IDishesHandler;
+import com.hexagonal.microservicio_plazoleta.application.handler.IRestaurantHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +22,7 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @RequiredArgsConstructor
 public class DishesRestController {
 
+    private final IRestaurantHandler restaurantHandler;
     private final IDishesHandler dishesHandler;
 
     @Operation(summary = "Create a new Dishes", description = "Add a new Dishes to the system")
@@ -42,13 +43,13 @@ public class DishesRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Enable or disable a Dish", description = "Change the active status of a dish (only by owner)")
-    @PreAuthorize(ROL_OWNER)
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<Void> updateDishStatus(
-            @PathVariable Long id,
-            @RequestBody @Valid DishStatusUpdateRequest request) {
-        dishesHandler.updateDishStatus(id, request);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<Page<ListDishResponse>> getDishesByRestaurantId(
+            @PathVariable Long restaurantId,
+            @RequestParam(required = false) String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(dishesHandler.getDishesByRestaurantId(restaurantId, category, pageable));
     }
 }

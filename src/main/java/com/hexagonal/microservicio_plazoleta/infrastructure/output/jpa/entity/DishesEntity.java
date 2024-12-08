@@ -7,7 +7,9 @@ import javax.validation.constraints.*;
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Entity
-@Table(name = "dishes")
+@Table(name = "dishes", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "restaurant_id"})
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,7 +27,7 @@ public class DishesEntity {
     @Column(nullable = false)
     @Positive(message = PRICE_INVALID)
     @NotNull(message = PRICE_MANDATORY)
-    private Integer price;
+    private Double price;
 
     @Column(nullable = false, length = MAX_LENGTH)
     @NotBlank(message = DESCRIPTION_REQUIRED)
