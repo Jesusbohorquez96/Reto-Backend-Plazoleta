@@ -43,9 +43,9 @@ public class DishesUseCase implements IDishesServicePort {
     @Override
     public void updateDishStatus(Long dishId, Boolean active, Long ownerId) {
         Dishes dish = dishesPersistencePort.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
+                .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUND));
         if (!dish.getOwnerId().equals(ownerId)) {
-            throw new UnauthorizedException("You are not the owner of this dish.");
+            throw new UnauthorizedException(OWNER_NOT_DISH);
         }
         dishesPersistencePort.updateDishStatus(dishId, active);
     }
