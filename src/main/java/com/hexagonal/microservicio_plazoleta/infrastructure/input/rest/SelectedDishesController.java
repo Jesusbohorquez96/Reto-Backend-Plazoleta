@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Tag(name = "Selected Dishes", description = "Operations related to selecting dishes for a user")
@@ -27,7 +29,7 @@ public class SelectedDishesController {
     @PreAuthorize(ROL_CUSTOMER)
     @PostMapping
     public ResponseEntity<Void> addDishToSelection(
-            @Valid @RequestBody SelectedDishRequest selectedDishRequest
+            @Valid @RequestBody List<SelectedDishRequest> selectedDishRequest
     ) {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

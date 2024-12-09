@@ -8,6 +8,9 @@ import com.hexagonal.microservicio_plazoleta.domain.model.SelectedDish;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IDishesPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.spi.SelectedDishPersistencePort;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class SelectedDishUseCase implements ISelectedDishServicePort {
 
     private final SelectedDishPersistencePort selectedDishPersistencePort;
@@ -19,19 +22,34 @@ public class SelectedDishUseCase implements ISelectedDishServicePort {
     }
 
     @Override
-    public void addSelectedDish(Long userId, SelectedDishRequest selectedDishRequest) {
-        Dishes dish = dishesPersistencePort.getDishById(selectedDishRequest.getDishId());
+    public void addSelectedDish(Long userId, List<SelectedDishRequest> selectedDishRequests) {
+        if (selectedDishRequests == null || selectedDishRequests.isEmpty()) {
+            return;
+        }
 
-        SelectedValidator.validateDishIsActive(dish);
+        List<Dishes> dishes = selectedDishRequests.stream()
+                .map(request -> dishesPersistencePort.getDishById(request.getDishId()))
+                .collect(Collectors.toList());
 
-        Double TotalPrice = SelectedValidator.calculateTotalPrice(dish.getPrice(), selectedDishRequest.getQuantity());
+        SelectedValidator.validateSameRestaurant(dishes);
 
-        SelectedDish selectedDish = new SelectedDish();
-        selectedDish.setDishId(selectedDishRequest.getDishId());
-        selectedDish.setUserId(userId);
-        selectedDish.setQuantity(selectedDishRequest.getQuantity());
-        selectedDish.setPrice(TotalPrice);
+        selectedDishRequests.forEach(selectedDishRequest -> {
+            Dishes dish = dishes.stream()
+                    .filter(d -> d.getId().equals(selectedDishRequest.getDishId()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
 
-        selectedDishPersistencePort.saveSelectedDish(selectedDish);
+            SelectedValidator.validateDishIsActive(dish);
+
+            Double totalPrice = SelectedValidator.calculateTotalPrice(dish.getPrice(), selectedDishRequest.getQuantity());
+
+            SelectedDish selectedDish = new SelectedDish();
+            selectedDish.setDishId(selectedDishRequest.getDishId());
+            selectedDish.setUserId(userId);
+            selectedDish.setQuantity(selectedDishRequest.getQuantity());
+            selectedDish.setPrice(totalPrice);
+
+            selectedDishPersistencePort.saveSelectedDish(selectedDish);
+        });
     }
 }
