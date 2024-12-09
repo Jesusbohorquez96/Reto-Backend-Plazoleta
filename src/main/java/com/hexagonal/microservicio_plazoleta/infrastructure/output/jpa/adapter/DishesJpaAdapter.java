@@ -64,4 +64,22 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
         return dishesRepository.findByRestaurantIdAndCategory(restaurantId, category, pageable)
                 .map(dishesEntityMapper::toDishes);
     }
+
+    @Override
+    public Dishes getDishById(Long dishId) {
+        DishesEntity entity = dishesRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
+
+        return new Dishes(
+                entity.getId(),
+                entity.getName(),
+                entity.getPrice(),
+                entity.getDescription(),
+                entity.getImageUrl(),
+                entity.getCategory(),
+                entity.getRestaurant().getId(),
+                entity.isActive(),
+                entity.getRestaurant().getOwnerId()
+        );
+    }
 }

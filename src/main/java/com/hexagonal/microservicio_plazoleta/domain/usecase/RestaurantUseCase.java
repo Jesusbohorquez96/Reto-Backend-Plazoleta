@@ -30,6 +30,6 @@ public abstract class RestaurantUseCase implements IRestaurantServicePort {
     @Override
     public Page<ListRestaurantResponse> listRestaurants(Pageable pageable) {
         return restaurantPersistencePort.getAllRestaurants(pageable)
-                .map(restaurant -> new ListRestaurantResponse(restaurant.getName(), restaurant.getUrlLogo()));
+                .map(restaurant -> new ListRestaurantResponse(restaurant.getId(), restaurant.getName(), restaurant.getUrlLogo()));
     }
 }

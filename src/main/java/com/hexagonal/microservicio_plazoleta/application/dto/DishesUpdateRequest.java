@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 public class DishesUpdateRequest {
 
     @Positive(message = "The price must be positive.")
-    private Integer price;
+    private Double price;
 
     @NotBlank(message = "Description is required.")
     private String description;

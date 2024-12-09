@@ -15,7 +15,7 @@ public class DishesRequest {
 
     @Positive(message = PRICE_INVALID)
     @NotNull(message = PRICE_MANDATORY)
-    private Integer price;
+    private Double price;
 
     @NotBlank(message = DESCRIPTION_REQUIRED)
     @Size(max = MAX_LENGTH, message = DESCRIPTION_MAX_LENGTH_EXCEEDED)

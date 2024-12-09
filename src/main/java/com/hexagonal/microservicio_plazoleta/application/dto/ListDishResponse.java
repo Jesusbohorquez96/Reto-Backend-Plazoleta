@@ -4,12 +4,12 @@ public class ListDishResponse {
 
     private Long id;
     private String name;
-    private Integer price;
+    private Double price;
     private String description;
     private String imageUrl;
     private String category;
 
-    public ListDishResponse(Long id, String name, Integer price, String description, String imageUrl, String category) {
+    public ListDishResponse(Long id, String name, Double price, String description, String imageUrl, String category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -34,11 +34,11 @@ public class ListDishResponse {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

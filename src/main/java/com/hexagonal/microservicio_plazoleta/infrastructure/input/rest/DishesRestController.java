@@ -2,7 +2,6 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.*;
 import com.hexagonal.microservicio_plazoleta.application.handler.IDishesHandler;
-import com.hexagonal.microservicio_plazoleta.application.handler.IRestaurantHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @RequiredArgsConstructor
 public class DishesRestController {
 
-    private final IRestaurantHandler restaurantHandler;
     private final IDishesHandler dishesHandler;
 
     @Operation(summary = "Create a new Dishes", description = "Add a new Dishes to the system")

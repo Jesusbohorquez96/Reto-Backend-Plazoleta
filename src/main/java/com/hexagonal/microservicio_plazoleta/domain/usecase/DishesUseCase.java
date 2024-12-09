@@ -29,7 +29,7 @@ public class DishesUseCase implements IDishesServicePort {
     }
 
     @Override
-    public void updateDish(Long dishId, Integer price, String description, Long ownerId) {
+    public void updateDish(Long dishId, Double price, String description, Long ownerId) {
         Dishes dish = dishesPersistencePort.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUND));
         if (!dish.getOwnerId().equals(ownerId)) {
