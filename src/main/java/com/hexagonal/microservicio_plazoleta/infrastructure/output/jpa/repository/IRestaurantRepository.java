@@ -10,4 +10,5 @@ public interface IRestaurantRepository extends JpaRepository<RestaurantEntity, L
     boolean existsByNit(Integer nit);
     boolean existsByIdAndOwnerId(Long restaurantId, Long ownerId);
     Page<RestaurantEntity> findAll(Pageable pageable);
+    boolean existsById(Long restaurantId);
 }

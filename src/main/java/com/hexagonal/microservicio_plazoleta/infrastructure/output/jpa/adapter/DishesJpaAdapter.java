@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
 @RequiredArgsConstructor
 @Transactional
 @Component
@@ -44,7 +46,7 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
         if (dishesRepository.existsById(dishId)) {
             dishesRepository.updateActiveStatus(dishId, active);
         } else {
-            throw new IllegalArgumentException("Dish not found");
+            throw new IllegalArgumentException(DISH_NOT_FOUNT);
         }
     }
 
@@ -63,5 +65,28 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
     public Page<Dishes> findByRestaurantIdAndCategory(Long restaurantId, String category, Pageable pageable) {
         return dishesRepository.findByRestaurantIdAndCategory(restaurantId, category, pageable)
                 .map(dishesEntityMapper::toDishes);
+    }
+
+    @Override
+    public Dishes getDishById(Long dishId) {
+        DishesEntity entity = dishesRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUNT));
+
+        return new Dishes(
+                entity.getId(),
+                entity.getName(),
+                entity.getPrice(),
+                entity.getDescription(),
+                entity.getImageUrl(),
+                entity.getCategory(),
+                entity.getRestaurant().getId(),
+                entity.isActive(),
+                entity.getRestaurant().getOwnerId()
+        );
+    }
+
+    @Override
+    public boolean existsById(Long restaurantId) {
+        return dishesRepository.existsById(restaurantId);
     }
 }

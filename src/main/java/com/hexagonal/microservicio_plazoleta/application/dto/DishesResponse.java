@@ -8,7 +8,7 @@ public class DishesResponse {
 
     private String name;
 
-    private Integer price;
+    private Double price;
 
     private String description;
 

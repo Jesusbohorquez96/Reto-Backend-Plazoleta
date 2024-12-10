@@ -51,12 +51,12 @@ class DishesHandlerTest {
     void shouldUpdateDishSuccessfully() {
         Long dishId = 1L;
         DishesUpdateRequest updateRequest = new DishesUpdateRequest();
-        updateRequest.setPrice(2000);
+        updateRequest.setPrice(20.00);
         updateRequest.setDescription("Updated description");
 
         dishesHandler.updateDish(dishId, updateRequest);
 
-        verify(dishesServicePort, times(1)).updateDish(dishId, 2000, "Updated description", 1L);
+        verify(dishesServicePort, times(1)).updateDish(dishId, 123.45, "Updated description", 1L);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.exceptionhandler;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.ErrorResponse;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.AlreadyExistsException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.NoDataFoundException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.NotFoundException;
@@ -69,29 +70,21 @@ public class ControllerAdvisor {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleNotFoundException(NotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of(
-                        STATUS, String.valueOf(HttpStatus.NOT_FOUND.value()),
-                        MESSAGE, ex.getMessage()
-                ));
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                List.of()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<Map<String, String>> handleNotFoundException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
                         STATUS, String.valueOf(HttpStatus.BAD_REQUEST.value()),
                         MESSAGE, ex.getMessage()
-                ));
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of(
-                        STATUS, String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()),
-                        MESSAGE, INTERNAL_SERVER
                 ));
     }
 

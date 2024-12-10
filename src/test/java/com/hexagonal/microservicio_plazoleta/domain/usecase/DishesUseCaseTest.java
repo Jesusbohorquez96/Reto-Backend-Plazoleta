@@ -54,7 +54,7 @@ class DishesUseCaseTest {
     @Test
     void shouldUpdateDishSuccessfully() {
         Long dishId = 1L;
-        Integer newPrice = 1500;
+        Double newPrice = 123.45;
         String newDescription = "Updated description";
         Long ownerId = 2L;
 
@@ -74,7 +74,7 @@ class DishesUseCaseTest {
     @Test
     void shouldThrowUnauthorizedExceptionWhenUpdatingDishWithDifferentOwner() {
         Long dishId = 1L;
-        Integer newPrice = 1500;
+        Double newPrice = 123.45;
         String newDescription = "Updated description";
         Long ownerId = 2L;
 
@@ -94,7 +94,7 @@ class DishesUseCaseTest {
     @Test
     void shouldThrowExceptionWhenDishNotFoundForUpdate() {
         Long dishId = 1L;
-        Integer newPrice = 1500;
+        Double newPrice = 123.45;
         String newDescription = "Updated description";
         Long ownerId = 2L;
 

@@ -19,4 +19,8 @@ public interface IDishesPersistencePort {
     Page<Dishes> findByRestaurantIdAndCategory(Long restaurantId, String category, Pageable pageable);
 
     boolean existsByNameAndRestaurantId(String name, Long restaurantId);
+
+    Dishes getDishById(Long dishesId);
+
+    boolean existsById(Long restaurantId);
 }

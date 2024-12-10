@@ -23,12 +23,12 @@ class DishesTest {
 
     @Test
     void shouldCreateDishesUsingAllArgsConstructor() {
-        Dishes dishes = new Dishes(1L, "Dish Name", 1000, "Delicious dish",
+        Dishes dishes = new Dishes(1L, "Dish Name", 10.00, "Delicious dish",
                 "http://example.com/image.jpg", "Category", 2L, 3L);
 
         assertEquals(1L, dishes.getId());
         assertEquals("Dish Name", dishes.getName());
-        assertEquals(1000, dishes.getPrice());
+        assertEquals(10.00, dishes.getPrice());
         assertEquals("Delicious dish", dishes.getDescription());
         assertEquals("http://example.com/image.jpg", dishes.getImageUrl());
         assertEquals("Category", dishes.getCategory());
@@ -43,7 +43,7 @@ class DishesTest {
 
         dishes.setId(1L);
         dishes.setName("Dish Name");
-        dishes.setPrice(2000);
+        dishes.setPrice(20.00);
         dishes.setDescription("Updated description");
         dishes.setImageUrl("http://example.com/new-image.jpg");
         dishes.setCategory("Updated Category");
@@ -53,7 +53,7 @@ class DishesTest {
 
         assertEquals(1L, dishes.getId());
         assertEquals("Dish Name", dishes.getName());
-        assertEquals(2000, dishes.getPrice());
+        assertEquals(20.00, dishes.getPrice());
         assertEquals("Updated description", dishes.getDescription());
         assertEquals("http://example.com/new-image.jpg", dishes.getImageUrl());
         assertEquals("Updated Category", dishes.getCategory());
