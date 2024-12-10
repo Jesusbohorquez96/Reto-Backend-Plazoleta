@@ -32,6 +32,11 @@ public class OrderUseCase implements IOrderServicePort {
     @Override
     public void createOrder(Long userId, OrderRequest orderRequest) {
 
+        List<OrderStatus> statusesInProcess = List.of(OrderStatus.PENDING, OrderStatus.IN_PROGRESS, OrderStatus.DELIVERED);
+        if (orderPersistencePort.existsByUserIdAndStatuses(userId, statusesInProcess)) {
+            throw new IllegalArgumentException(ORDER_PROCESS);
+        }
+
         if (orderRequest.getSelectedDishes() == null || orderRequest.getSelectedDishes().isEmpty()) {
             throw new IllegalArgumentException(ORDER_MUST_DISH);
         }

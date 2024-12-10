@@ -81,6 +81,7 @@ public class ValidationConstants {
     public static final String VALIDATION_FAILED = "Validation failed for one or more field ";
     public static final String ROOD_ID = "/{id}";
 
+    public static final String ORDER_PROCESS = "You cannot create a new order while you have an order in process.";
     public static final String ERROR_HANDLER = "An unexpected error occurred while processing the request";
     public static final String ORDER_MUST_DISH = "The order must contain at least one dish.";
     public static final String RESTAURANT_NOT_EXIST = "The restaurant does not exist.";
