@@ -1,6 +1,7 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.configuration;
 
 import com.hexagonal.microservicio_plazoleta.domain.api.IOrderServicePort;
+import com.hexagonal.microservicio_plazoleta.domain.api.SelectedDishService;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IOrderPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IDishesPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.spi.SelectedDishPersistencePort;
@@ -19,7 +20,7 @@ public class BeanConfigurationOrder {
     private final OrderRepository orderRepository;
     private final OrderEntityMapper orderEntityMapper;
     private final IDishesPersistencePort dishesPersistencePort;
-    private final SelectedDishPersistencePort selectedDishPersistencePort;
+    private final SelectedDishService selectedDishService;
 
     @Bean
     public IOrderPersistencePort orderPersistencePort() {
@@ -28,6 +29,6 @@ public class BeanConfigurationOrder {
 
     @Bean
     public IOrderServicePort orderServicePort() {
-        return new OrderUseCase(orderPersistencePort(), dishesPersistencePort,selectedDishPersistencePort);
+        return new OrderUseCase(orderPersistencePort(), dishesPersistencePort,selectedDishService);
     }
 }

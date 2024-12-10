@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.domain.model;
 
+
 public class SelectedDish {
 
     private Long id;
@@ -20,6 +21,9 @@ public class SelectedDish {
 
     public SelectedDish() {
 
+    }
+
+    public SelectedDish(Object o, Long id, Integer quantity, Double aDouble, javax.persistence.criteria.Order order) {
     }
 
     public Long getId() {

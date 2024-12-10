@@ -1,6 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity;
 
-import com.hexagonal.microservicio_plazoleta.domain.Utils.OrderStatus;
+import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;

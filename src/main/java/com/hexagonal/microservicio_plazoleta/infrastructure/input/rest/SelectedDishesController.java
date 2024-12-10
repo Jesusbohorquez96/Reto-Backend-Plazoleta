@@ -2,6 +2,7 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.application.handler.IOrderHandler;
+import com.hexagonal.microservicio_plazoleta.infrastructure.exception.DishValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class SelectedDishesController {
     @Operation(summary = "Select a dish", description = "Allows clients to select a dish and specify its quantity")
     @PreAuthorize(ROL_CUSTOMER)
     @PostMapping
-    public ResponseEntity<Void> addDishToSelection(
+    public ResponseEntity<String> addDishToSelection(
             @Valid @RequestBody OrderRequest  orderRequest
     ) {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,10 +39,15 @@ public class SelectedDishesController {
             Long clientId = Long.parseLong(userId);
             orderHandler.createOrder(clientId, orderRequest);
             return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DishValidationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Validation failed for Dish ID: " + e.getDishId() + ". Reason: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw e;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(ERROR_HANDLER, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ERROR_HANDLER + ": " + e.getMessage());
         }
     }
 }

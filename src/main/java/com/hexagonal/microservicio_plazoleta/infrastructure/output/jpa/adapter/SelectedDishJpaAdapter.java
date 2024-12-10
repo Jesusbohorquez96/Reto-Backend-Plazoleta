@@ -7,9 +7,10 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.Se
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.SelectedDishesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
+import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SelectedDishJpaAdapter implements SelectedDishPersistencePort {
 
     private final SelectedDishesRepository selectedDishesRepository;
