@@ -3,6 +3,7 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.application.handler.IOrderHandler;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,33 +16,23 @@ import javax.validation.Valid;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
-@Tag(name = "Selected Dishes", description = "Operations related to selecting dishes for a user")
+@Tag(name = "Orders", description = "Operations related to managing orders")
 @RestController
-@RequestMapping(ALL_API_DISHES)
+@RequestMapping(API_ORDERS)
 @RequiredArgsConstructor
-public class SelectedDishesController {
+public class OrderController {
 
     private final IOrderHandler orderHandler;
 
-    @Operation(summary = "Select a dish", description = "Allows clients to select a dish and specify its quantity")
-    @PreAuthorize(ROL_CUSTOMER)
+    @Operation(
+            summary = "Create a new order",
+            description = "Allows customers to create a new order specifying the restaurant and selected dishes"
+    )
     @PostMapping
-    public ResponseEntity<Void> addDishToSelection(
-            @Valid @RequestBody OrderRequest  orderRequest
-    ) {
+    @PreAuthorize(ROL_CUSTOMER)
+    public ResponseEntity<Void> createOrder(@Valid @RequestBody OrderRequest orderRequest) {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (userId == null) {
-            throw new IllegalArgumentException(USER_SECURITY);
-        }
-        try {
-            Long clientId = Long.parseLong(userId);
-            orderHandler.createOrder(clientId, orderRequest);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(ERROR_HANDLER, e);
-        }
+        orderHandler.createOrder(Long.parseLong(userId), orderRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

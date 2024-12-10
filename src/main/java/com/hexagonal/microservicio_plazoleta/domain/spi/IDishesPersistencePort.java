@@ -21,4 +21,6 @@ public interface IDishesPersistencePort {
     boolean existsByNameAndRestaurantId(String name, Long restaurantId);
 
     Dishes getDishById(Long dishesId);
+
+    boolean existsById(Long restaurantId);
 }

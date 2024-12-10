@@ -1,10 +1,9 @@
 package com.hexagonal.microservicio_plazoleta.application.handler;
 
-import com.hexagonal.microservicio_plazoleta.application.dto.SelectedDishRequest;
-
-import java.util.List;
+import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 
 public interface ISelectedDishesHandler {
 
-    void addDishToSelection(Long userId, List<SelectedDishRequest> selectedDishRequest);
+    void addDishesToOrder(Long userId, OrderRequest  orderRequest);
+
 }

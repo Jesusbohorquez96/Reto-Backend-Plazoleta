@@ -15,6 +15,9 @@ public class ValidationConstants {
     public static final int DESCRIPTION_MAX_LENGTH = 90;
     public static final int MAX_LENGTH = 120;
 
+    public static final String ZERO_S = "0";
+    public static final String INTEGERS_S = "10";
+
     public static final String ROL = "rol";
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
@@ -40,6 +43,18 @@ public class ValidationConstants {
     public static final String PRICE_INVALID = "The price of the dish must be a positive integer and greater than 0.";
     public static final String HTTPS = "^(http|https)://.*";
     public static final String PRICE_MANDATORY = "Price is mandatory";
+    public static final String DISH_REQUIRED = "Dish ID is required";
+    public static final String QUANTITY_REQUIRED = "Quantity is mandatory";
+    public static final String SELECTED_DISHES = "selectedDishes";
+    public static final String DISHES_SELECTED = "selected_dishes";
+    public static final String RESTAURANT_ID_MAPPER = "restaurantId";
+    public static final String RESTAURANT_ID_SOURCE = "restaurant.id";
+    public static final String ID_RESTAURANT = "restaurant";
+    public static final String ID_RESTAURANT_OWNER = "restaurant.ownerId";
+    public static final String ID_OWNER = "ownerId";
+    public static final String ORDER_ID = "order_id";
+    public static final String ORDER = "order";
+    public static final String ORDERS = "orders";
 
     public static final String CATEGORY_REQUIRED = "The category of the dish is mandatory.";
     public static final String UNIQUE_NAME = "The restaurant name must be unique.";
@@ -54,17 +69,24 @@ public class ValidationConstants {
     public static final String SWAGGER_UI_RESOURCES = "/swagger-ui/**";
     public static final String AUTH = "/auth/**";
     public static final String ALL_API = "/api/**";
+    public static final String ALL_API_DISHES = "/api/selected-dishes";
+    public static final String API_ORDERS = "/api/orders";
+    public static final String GET_RESTAURANT_ID = "/restaurant/{restaurantId}";
 
     public static final String STATUS = "status";
     public static final String ERRORS = "errors";
     public static final String FIELD = "field";
     public static final String REJECTED_VALUE = "rejectedValue";
     public static final String NULL = "null";
-    public static final String VALIDATION_FAILED = "Validation failed for one or more fields";
-
+    public static final String VALIDATION_FAILED = "Validation failed for one or more field ";
     public static final String ROOD_ID = "/{id}";
 
-    public static final String INTERNAL_SERVER = "Internal server error occurred";
+    public static final String ERROR_HANDLER = "An unexpected error occurred while processing the request";
+    public static final String ORDER_MUST_DISH = "The order must contain at least one dish.";
+    public static final String RESTAURANT_NOT_EXIST = "The restaurant does not exist.";
+    public static final String USER_SECURITY = "User ID is missing in the security context";
+    public static final String DISH_NOT_FOUNT = "Dish not found";
+
     public static final String OCCURRED_UNEXPECTED = "An unexpected error occurred";
     public static final String CREATE = "/create";
     public static final String USER_NOT_OWNER_RESTAURANT = "The user is not the owner of the restaurant.";

@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
 @RequiredArgsConstructor
 @Transactional
 @Component
@@ -44,7 +46,7 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
         if (dishesRepository.existsById(dishId)) {
             dishesRepository.updateActiveStatus(dishId, active);
         } else {
-            throw new IllegalArgumentException("Dish not found");
+            throw new IllegalArgumentException(DISH_NOT_FOUNT);
         }
     }
 
@@ -68,7 +70,7 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
     @Override
     public Dishes getDishById(Long dishId) {
         DishesEntity entity = dishesRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
+                .orElseThrow(() -> new IllegalArgumentException(DISH_NOT_FOUNT));
 
         return new Dishes(
                 entity.getId(),
@@ -81,5 +83,10 @@ public class DishesJpaAdapter implements IDishesPersistencePort {
                 entity.isActive(),
                 entity.getRestaurant().getOwnerId()
         );
+    }
+
+    @Override
+    public boolean existsById(Long restaurantId) {
+        return dishesRepository.existsById(restaurantId);
     }
 }

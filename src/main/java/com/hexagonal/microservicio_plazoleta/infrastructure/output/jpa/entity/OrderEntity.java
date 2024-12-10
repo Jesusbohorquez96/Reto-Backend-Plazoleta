@@ -1,36 +1,36 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity;
 
+import com.hexagonal.microservicio_plazoleta.domain.Utils.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Entity
-@Table(name = DISHES_SELECTED)
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = ORDERS)
 @Getter
 @Setter
-public class SelectedDishesEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Long dishId;
+    private Long restaurantId;
 
     @Column(nullable = false)
     private Long userId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Integer quantity;
+    private OrderStatus status;
 
-    @Column(nullable = false)
-    private Double price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = ORDER_ID, nullable = false)
-    private OrderEntity order;
+    @OneToMany(mappedBy = ORDER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SelectedDishesEntity> selectedDishes;
 }

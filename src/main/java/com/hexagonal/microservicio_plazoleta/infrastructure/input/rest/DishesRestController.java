@@ -41,12 +41,13 @@ public class DishesRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/restaurant/{restaurantId}")
+    @Operation(summary = "get restaurant id")
+    @GetMapping(GET_RESTAURANT_ID)
     public ResponseEntity<Page<ListDishResponse>> getDishesByRestaurantId(
             @PathVariable Long restaurantId,
             @RequestParam(required = false) String category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = ZERO_S) int page,
+            @RequestParam(defaultValue = INTEGERS_S) int size) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(dishesHandler.getDishesByRestaurantId(restaurantId, category, pageable));
     }

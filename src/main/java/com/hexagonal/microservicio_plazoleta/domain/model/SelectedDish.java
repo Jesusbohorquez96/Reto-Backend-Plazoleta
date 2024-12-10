@@ -1,6 +1,5 @@
 package com.hexagonal.microservicio_plazoleta.domain.model;
 
-
 public class SelectedDish {
 
     private Long id;
@@ -8,13 +7,15 @@ public class SelectedDish {
     private Long userId;
     private Integer quantity;
     private Double price;
+    private Order order;
 
-    public SelectedDish(Long id, Long dishId, Long userId, Integer quantity, Double price) {
+    public SelectedDish(Long id, Long dishId, Long userId, Integer quantity, Double price, Order order) {
         this.id = id;
         this.dishId = dishId;
         this.userId = userId;
         this.quantity = quantity;
         this.price = price;
+        this.order = order;
     }
 
     public SelectedDish() {
@@ -59,5 +60,13 @@ public class SelectedDish {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order orderId) {
+        this.order = orderId;
     }
 }
