@@ -23,7 +23,7 @@ public class DishesUseCase implements IDishesServicePort {
             throw new UnauthorizedException(USER_NOT_OWNER_RESTAURANT);
         }
         if (dishesPersistencePort.existsByNameAndRestaurantId(dishes.getName(), dishes.getRestaurantId())) {
-            throw new AlreadyExistsException("A dish with the name '" + dishes.getName() + "' already exists in this restaurant.");
+            throw new AlreadyExistsException(DISH_WITH_NAME + dishes.getName() + ALREADY_EXISTS_RESTAURANT);
         }
         dishesPersistencePort.saveDishes(dishes);
     }

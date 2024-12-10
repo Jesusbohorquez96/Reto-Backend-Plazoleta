@@ -1,6 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.adapter;
 
-import com.hexagonal.microservicio_plazoleta.domain.Utils.OrderStatus;
+import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.domain.model.Order;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IOrderPersistencePort;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.OrderEntity;
@@ -28,5 +28,13 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     @Override
     public boolean existsByUserIdAndStatuses(Long userId, List<OrderStatus> statuses) {
         return orderRepository.existsByUserIdAndStatusIn(userId, statuses);
+    }
+
+    @Override
+    public void deleteOrder(Long orderId) {
+        if (!orderRepository.existsById(orderId)) {
+            throw new IllegalArgumentException("Order not found with ID: " + orderId);
+        }
+        orderRepository.deleteById(orderId);
     }
 }

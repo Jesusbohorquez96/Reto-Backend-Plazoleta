@@ -63,7 +63,7 @@ public class ValidationConstants {
     public static final String INVALID_JWT = "Invalid or malformed JWT token";
 
     public static final String OWNER_NOT_DISH = "You are not the owner of this dish.";
-    public static final String DISH_NOT_FOUND = "The not found";
+    public static final String DISH_NOT_FOUND = "Dishes not found";
     public static final String V3_API = "/v3/api-docs/**";
     public static final String SWAGGER_UI = "/swagger-ui.html";
     public static final String SWAGGER_UI_RESOURCES = "/swagger-ui/**";
@@ -81,12 +81,21 @@ public class ValidationConstants {
     public static final String VALIDATION_FAILED = "Validation failed for one or more field ";
     public static final String ROOD_ID = "/{id}";
 
-    public static final String ORDER_PROCESS = "You cannot create a new order while you have an order in process.";
+    public static final String ORDER_PROCESS = "The user already has an order in process.";
+    public static final String SELECTED_DISHES_SAME_RESTAURANT = "All selected dishes must belong to the same restaurant. Invalid dish IDs: ";
     public static final String ERROR_HANDLER = "An unexpected error occurred while processing the request";
-    public static final String ORDER_MUST_DISH = "The order must contain at least one dish.";
-    public static final String RESTAURANT_NOT_EXIST = "The restaurant does not exist.";
+    public static final String ORDER_MUST_DISH = "An order must contain at least one dish.";
+    public static final String RESTAURANT_NOT_EXIST = "The specified restaurant does not exist.";
     public static final String USER_SECURITY = "User ID is missing in the security context";
     public static final String DISH_NOT_FOUNT = "Dish not found";
+    public static final String DISH_NOT_FOUNT_ID = "Dish not found: ID ";
+    public static final String DISH_NOT_ACTIVE = "Dish is not active: ID ";
+    public static final String DISH_PRICE_ZERO = "Dish price must be greater than zero.";
+    public static final String QUANTITY_ZERO = "Quantity must be greater than zero.";
+    public static final String ORDER_CANNOT_NULL = "Order cannot be null";
+
+    public static final String DISH_WITH_NAME = "A dish with the name '";
+    public static final String ALREADY_EXISTS_RESTAURANT = "' already exists in this restaurant.";
 
     public static final String OCCURRED_UNEXPECTED = "An unexpected error occurred";
     public static final String CREATE = "/create";

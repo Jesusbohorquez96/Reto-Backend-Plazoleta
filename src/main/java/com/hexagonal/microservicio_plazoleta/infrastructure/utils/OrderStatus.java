@@ -1,4 +1,4 @@
-package com.hexagonal.microservicio_plazoleta.domain.Utils;
+package com.hexagonal.microservicio_plazoleta.infrastructure.utils;
 
 public enum OrderStatus {
 

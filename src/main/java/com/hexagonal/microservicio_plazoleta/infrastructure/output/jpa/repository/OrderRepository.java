@@ -1,6 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository;
 
-import com.hexagonal.microservicio_plazoleta.domain.Utils.OrderStatus;
+import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
