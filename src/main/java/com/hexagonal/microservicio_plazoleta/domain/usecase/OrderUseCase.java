@@ -85,7 +85,7 @@ public class OrderUseCase implements IOrderServicePort {
     }
 
     @Override
-    public Page<Order> getOrdersByStatus(OrderStatus status, int page, int size) {
-        return orderPersistencePort.findOrdersByStatus(status, page, size);
+    public Page<Order> getOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
+        return orderPersistencePort.findOrdersByStatus(status, page, size, restaurantId);
     }
 }

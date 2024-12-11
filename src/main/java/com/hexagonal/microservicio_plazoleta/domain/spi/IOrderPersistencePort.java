@@ -14,5 +14,5 @@ public interface IOrderPersistencePort {
 
     void deleteOrder(Long orderId);
 
-    Page<Order> findOrdersByStatus(OrderStatus status, int page, int size);
+    Page<Order> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId);
 }

@@ -10,4 +10,5 @@ public interface IRestaurantServicePort {
 
     Page<ListRestaurantResponse> listRestaurants(Pageable pageable);
 
+    Restaurant getRestaurantById(Long id);
 }

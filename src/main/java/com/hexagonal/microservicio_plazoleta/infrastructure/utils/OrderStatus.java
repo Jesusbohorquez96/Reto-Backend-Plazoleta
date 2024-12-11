@@ -3,9 +3,9 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.utils;
 public enum OrderStatus {
 
     PENDING("PENDING"),
-    IN_PROGRESS("En proceso"),
-    DELIVERED("Entregado"),
-    CANCELED("Cancelado");
+    IN_PROGRESS("IN_PROGRESS"),
+    DELIVERED("DELIVERED"),
+    CANCELED("CANCELED");
 
     private final String displayName;
 

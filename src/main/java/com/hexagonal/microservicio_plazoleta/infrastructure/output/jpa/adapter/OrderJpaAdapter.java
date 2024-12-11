@@ -42,9 +42,9 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     }
 
     @Override
-    public Page<Order> findOrdersByStatus(OrderStatus status, int page, int size) {
+    public Page<Order> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<OrderEntity> orderEntities = orderRepository.findByStatus(status, pageRequest);
+        Page<OrderEntity> orderEntities = orderRepository.findByStatusAndRestaurantId(status, restaurantId, pageRequest);
         return orderEntities.map(orderEntityMapper::toDomainWithBasicFields);
     }
 }

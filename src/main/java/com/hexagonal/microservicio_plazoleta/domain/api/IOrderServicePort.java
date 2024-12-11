@@ -11,5 +11,5 @@ public interface IOrderServicePort {
 
     Long createOrderAndGetId(Long userId, OrderRequest orderRequest);
 
-    Page<Order> getOrdersByStatus(OrderStatus status, int page, int size);
+    Page<Order> getOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId);
 }

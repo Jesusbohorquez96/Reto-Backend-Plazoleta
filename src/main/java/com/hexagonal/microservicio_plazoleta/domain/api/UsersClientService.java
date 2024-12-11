@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.domain.api;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.EmployeeRestaurantIdResponse;
 import com.hexagonal.microservicio_plazoleta.application.dto.OwnerResponse;
 import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.feign.UsersClient;
 import lombok.RequiredArgsConstructor;
@@ -13,5 +14,9 @@ public class UsersClientService {
 
     public OwnerResponse validateOwner(Long ownerId) {
         return usersClient.validateOwner(ownerId);
+    }
+
+    public EmployeeRestaurantIdResponse validateEmployee(Long employeeId) {
+        return usersClient.validateEmployee(employeeId);
     }
 }

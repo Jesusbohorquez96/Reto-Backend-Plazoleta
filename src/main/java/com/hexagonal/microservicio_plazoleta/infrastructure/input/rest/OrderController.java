@@ -1,14 +1,15 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.EmployeeRestaurantIdResponse;
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.application.handler.IOrderHandler;
+import com.hexagonal.microservicio_plazoleta.domain.api.UsersClientService;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.DishValidationException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,10 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @RestController
 @RequestMapping(API_ORDERS)
 @RequiredArgsConstructor
-@Slf4j
 public class OrderController {
 
     private final IOrderHandler orderHandler;
+    private final UsersClientService usersClientService;
 
     @Operation(
             summary = "Create a new order",
@@ -68,7 +69,15 @@ public class OrderController {
             @RequestParam OrderStatus status,
             @RequestParam int page,
             @RequestParam int size) {
-        Page<OrderResponse> orders = orderHandler.getOrdersByStatus(status, page, size);
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userId == null) {
+            throw new IllegalArgumentException(USER_SECURITY);
+        }
+        EmployeeRestaurantIdResponse employee = usersClientService.validateEmployee(Long.valueOf(userId));
+        if (employee == null) {
+            throw new IllegalArgumentException("OWNER_SECURITY");
+        }
+        Page<OrderResponse> orders = orderHandler.getOrdersByStatus(status, page, size, employee.getRestaurantId());
 
         return ResponseEntity.ok(orders);
     }

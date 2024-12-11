@@ -29,8 +29,8 @@ public class OrderHandler implements IOrderHandler {
     }
 
     @Override
-    public Page<OrderResponse> getOrdersByStatus (OrderStatus  status, int page, int size) {
-        return orderServicePort.getOrdersByStatus(status, page, size)
+    public Page<OrderResponse> getOrdersByStatus (OrderStatus  status, int page, int size, Long restaurantId) {
+        return orderServicePort.getOrdersByStatus(status, page, size, restaurantId)
                 .map(orderMapper::toResponseDto);
     }
 }

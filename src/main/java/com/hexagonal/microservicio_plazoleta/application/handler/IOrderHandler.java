@@ -11,5 +11,5 @@ public interface IOrderHandler {
 
     Long createOrderForUser(Long userId, OrderRequest orderRequest);
 
-    Page<OrderResponse> getOrdersByStatus (OrderStatus status, int page, int size);
+    Page<OrderResponse> getOrdersByStatus (OrderStatus status, int page, int size, Long restaurantId);
 }

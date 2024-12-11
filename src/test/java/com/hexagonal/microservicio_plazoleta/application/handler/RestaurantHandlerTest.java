@@ -2,6 +2,7 @@ package com.hexagonal.microservicio_plazoleta.application.handler;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.RestaurantRequest;
 import com.hexagonal.microservicio_plazoleta.application.mapper.RestaurantRequestMapper;
+import com.hexagonal.microservicio_plazoleta.application.mapper.RestaurantResponseMapper;
 import com.hexagonal.microservicio_plazoleta.domain.api.IRestaurantServicePort;
 import com.hexagonal.microservicio_plazoleta.domain.model.Restaurant;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +23,13 @@ class RestaurantHandlerTest {
     @Mock
     private IRestaurantServicePort restaurantServicePort;
 
+    @Mock
+    private RestaurantResponseMapper restaurantResponseMapper;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        restaurantHandler = new RestaurantHandler(restaurantRequestMapper, restaurantServicePort);
+        restaurantHandler = new RestaurantHandler(restaurantRequestMapper, restaurantServicePort, restaurantResponseMapper);
     }
 
     @Test
