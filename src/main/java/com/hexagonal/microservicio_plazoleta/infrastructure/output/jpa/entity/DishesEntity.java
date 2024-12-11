@@ -14,6 +14,7 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class DishesEntity {
 
     @Id

@@ -90,6 +90,10 @@ public class ValidationConstants {
     public static final String DISH_NOT_FOUNT = "Dish not found";
     public static final String DISH_NOT_FOUNT_ID = "Dish not found: ID ";
     public static final String DISH_NOT_ACTIVE = "Dish is not active: ID ";
+
+    public static final String VALIDATION_DISH_ID = "Validation failed for Dish ID: ";
+    public static final String REASON = ". Reason: ";
+
     public static final String DISH_PRICE_ZERO = "Dish price must be greater than zero.";
     public static final String QUANTITY_ZERO = "Quantity must be greater than zero.";
     public static final String ORDER_CANNOT_NULL = "Order cannot be null";
@@ -109,6 +113,7 @@ public class ValidationConstants {
     public static final String ROL_OWNER = "hasAnyRole('propietario')";
     public static final String ROL_ADMIN = "hasAnyRole('admin')";
     public static final String ROL_CUSTOMER = "hasAnyRole('cliente')";
+    public static final String ROL_EMPLOYEE = "hasAnyRole('empleado')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
 
 

@@ -11,12 +11,12 @@ import com.hexagonal.microservicio_plazoleta.domain.spi.IOrderPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IDishesPersistencePort;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.SelectedValidator;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.NotFoundException;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
-@Slf4j
+
 public class OrderUseCase implements IOrderServicePort {
 
     private final IOrderPersistencePort orderPersistencePort;
@@ -82,5 +82,10 @@ public class OrderUseCase implements IOrderServicePort {
         if (!dishesPersistencePort.existsById(orderRequest.getRestaurantId())) {
             throw new NotFoundException(RESTAURANT_NOT_EXIST);
         }
+    }
+
+    @Override
+    public Page<Order> getOrdersByStatus(OrderStatus status, int page, int size) {
+        return orderPersistencePort.findOrdersByStatus(status, page, size);
     }
 }

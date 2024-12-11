@@ -15,6 +15,7 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class OrderEntity {
 
     @Id
@@ -31,6 +32,6 @@ public class OrderEntity {
     @Column(nullable = false)
     private OrderStatus status;
 
-    @OneToMany(mappedBy = ORDER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = ORDER, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SelectedDishesEntity> selectedDishes;
 }

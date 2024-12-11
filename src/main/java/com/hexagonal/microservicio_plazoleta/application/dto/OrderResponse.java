@@ -1,30 +1,23 @@
-package com.hexagonal.microservicio_plazoleta.domain.model;
+package com.hexagonal.microservicio_plazoleta.application.dto;
 
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 
 import java.util.List;
 
-public class Order {
+public class OrderResponse {
 
     private Long id;
     private Long restaurantId;
     private Long userId;
     private OrderStatus status;
-    private List<SelectedDish> selectedDishes;
+    private List<SelectedDishResponseDto> selectedDishes;
 
-    public Order(Long id, Long restaurantId, Long userId, OrderStatus status, List<SelectedDish> selectedDishes) {
+    public OrderResponse(Long id, Long restaurantId, Long userId, OrderStatus status, List<SelectedDishResponseDto> selectedDishes) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.userId = userId;
         this.status = status;
         this.selectedDishes = selectedDishes;
-    }
-
-    public Order() {
-
-    }
-
-    public Order(Long id, Long restaurantId, OrderStatus status, Long userId) {
     }
 
     public Long getId() {
@@ -59,22 +52,11 @@ public class Order {
         this.status = status;
     }
 
-    public List<SelectedDish> getSelectedDishes() {
+    public List<SelectedDishResponseDto> getSelectedDishes() {
         return selectedDishes;
     }
 
-    public void setSelectedDishes(List<SelectedDish> selectedDishes) {
+    public void setSelectedDishes(List<SelectedDishResponseDto> selectedDishes) {
         this.selectedDishes = selectedDishes;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", restaurantId=" + restaurantId +
-                ", userId=" + userId +
-                ", status=" + status +
-                ", selectedDishes=" + selectedDishes +
-                '}';
     }
 }
