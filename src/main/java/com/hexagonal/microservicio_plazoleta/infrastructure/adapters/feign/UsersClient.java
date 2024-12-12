@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.adapters.feign;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.EmployeeRestaurantIdResponse;
 import com.hexagonal.microservicio_plazoleta.application.dto.OwnerResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,4 +11,7 @@ public interface UsersClient {
 
     @GetMapping("/validate-owner/{ownerId}")
     OwnerResponse validateOwner(@PathVariable("ownerId") Long ownerId);
+
+    @GetMapping("/validate-employee/{employeeId}")
+    EmployeeRestaurantIdResponse validateEmployee(@PathVariable("employeeId") Long employeeId);
 }

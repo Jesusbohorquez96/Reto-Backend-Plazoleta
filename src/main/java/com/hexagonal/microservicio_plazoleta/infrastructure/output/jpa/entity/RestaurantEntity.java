@@ -9,6 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class RestaurantEntity {
 
     @Id

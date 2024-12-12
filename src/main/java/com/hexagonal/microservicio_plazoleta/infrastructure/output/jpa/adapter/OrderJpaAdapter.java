@@ -7,12 +7,15 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.Or
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.OrderEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class OrderJpaAdapter implements IOrderPersistencePort {
 
     private final OrderRepository orderRepository;
@@ -36,5 +39,12 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
             throw new IllegalArgumentException("Order not found with ID: " + orderId);
         }
         orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public Page<Order> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<OrderEntity> orderEntities = orderRepository.findByStatusAndRestaurantId(status, restaurantId, pageRequest);
+        return orderEntities.map(orderEntityMapper::toDomainWithBasicFields);
     }
 }

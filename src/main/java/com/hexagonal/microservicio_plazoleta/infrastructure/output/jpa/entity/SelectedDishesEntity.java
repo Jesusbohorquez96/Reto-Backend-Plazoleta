@@ -12,6 +12,7 @@ import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstant
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class SelectedDishesEntity {
 
     @Id
@@ -32,5 +33,6 @@ public class SelectedDishesEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = ORDER_ID, nullable = false)
+    @ToString.Exclude
     private OrderEntity order;
 }

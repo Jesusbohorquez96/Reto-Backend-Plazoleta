@@ -8,7 +8,7 @@ import org.springframework.data.domain.*;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
-public abstract class RestaurantUseCase implements IRestaurantServicePort {
+public class RestaurantUseCase implements IRestaurantServicePort {
 
     private final IRestaurantPersistencePort restaurantPersistencePort;
 
@@ -32,4 +32,10 @@ public abstract class RestaurantUseCase implements IRestaurantServicePort {
         return restaurantPersistencePort.getAllRestaurants(pageable)
                 .map(restaurant -> new ListRestaurantResponse(restaurant.getId(), restaurant.getName(), restaurant.getUrlLogo()));
     }
+
+    @Override
+    public Restaurant getRestaurantById(Long id) {
+        return restaurantPersistencePort.getRestaurantById(id).orElseThrow(() -> new IllegalArgumentException("NOT_FOUND"));
+    }
 }
+

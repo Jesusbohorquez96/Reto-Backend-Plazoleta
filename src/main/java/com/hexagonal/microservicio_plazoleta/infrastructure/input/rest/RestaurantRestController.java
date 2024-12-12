@@ -1,8 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
-import com.hexagonal.microservicio_plazoleta.application.dto.ListRestaurantResponse;
-import com.hexagonal.microservicio_plazoleta.application.dto.OwnerResponse;
-import com.hexagonal.microservicio_plazoleta.application.dto.RestaurantRequest;
+import com.hexagonal.microservicio_plazoleta.application.dto.*;
 import com.hexagonal.microservicio_plazoleta.application.handler.IRestaurantHandler;
 import com.hexagonal.microservicio_plazoleta.domain.api.UsersClientService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-        import javax.validation.Valid;
-
+import javax.validation.Valid;
 import java.util.Objects;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
@@ -47,5 +44,10 @@ public class RestaurantRestController {
     @GetMapping
     public Page<ListRestaurantResponse> listRestaurants(Pageable pageable) {
         return restaurantHandler.listRestaurants(pageable);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<IdRestaurantResponse> getRestaurantById(@PathVariable Long id) {
+
+        return ResponseEntity.ok(restaurantHandler.getRestaurantById(id));
     }
 }
