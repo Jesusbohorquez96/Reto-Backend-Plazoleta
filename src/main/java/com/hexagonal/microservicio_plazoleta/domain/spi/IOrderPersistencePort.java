@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.domain.spi;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.domain.model.Order;
 import org.springframework.data.domain.*;
@@ -14,9 +15,11 @@ public interface IOrderPersistencePort {
 
     void deleteOrder(Long orderId);
 
-    Page<Order> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId);
+    Page<OrderResponse> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId);
 
     Order findById(Long orderId);
 
     void save(Order order);
+
+    void updateOrderStatus(Long orderId, OrderStatus status);
 }

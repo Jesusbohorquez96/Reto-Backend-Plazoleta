@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.domain.model.Order;
 import com.hexagonal.microservicio_plazoleta.domain.model.SelectedDish;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.OrderEntity;
@@ -29,4 +30,6 @@ public interface OrderEntityMapper {
 
     List<SelectedDish> toDomainList(List<SelectedDishesEntity> selectedDishesEntities);
 
+    @Mapping(target = SELECTED_DISHES, source = SELECTED_DISHES)
+    OrderResponse toDomainStatus(OrderEntity orderEntity);
 }

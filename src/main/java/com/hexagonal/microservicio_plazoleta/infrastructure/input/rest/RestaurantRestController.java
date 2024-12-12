@@ -14,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
@@ -31,11 +30,6 @@ public class RestaurantRestController {
     @PreAuthorize(ROL_ADMIN)
     @PostMapping(CREATE)
     public ResponseEntity<Void> saveRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest) {
-        OwnerResponse owner = usersClientService.validateOwner(restaurantRequest.getOwnerId());
-        if (!Objects.equals(owner.getId(), restaurantRequest.getOwnerId())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(null);
-        }
         restaurantHandler.saveRestaurant(restaurantRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

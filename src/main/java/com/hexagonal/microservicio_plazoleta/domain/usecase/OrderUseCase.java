@@ -1,6 +1,7 @@
 package com.hexagonal.microservicio_plazoleta.domain.usecase;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
+import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.domain.api.IOrderServicePort;
 import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services.SelectedDishService;
@@ -31,11 +32,16 @@ public class OrderUseCase implements IOrderServicePort {
 
     @Override
     public void createOrder(Long userId, OrderRequest orderRequest) {
-
         validateOrder(userId, orderRequest);
 
         List<Dishes> dishes = orderRequest.getSelectedDishes().stream()
-                .map(request -> dishesPersistencePort.getDishById(request.getDishId()))
+                .map(request -> {
+                    Dishes dish = dishesPersistencePort.getDishById(request.getDishId());
+                    if (dish.getRestaurantId() == null) {
+                        throw new IllegalArgumentException(PLATE_ID + request.getDishId() + DOES_NOT_HAVE_ASSIGNED_RESTAURANT);
+                    }
+                    return dish;
+                })
                 .collect(Collectors.toList());
 
         SelectedValidator.validateSameRestaurant(dishes);
@@ -85,7 +91,7 @@ public class OrderUseCase implements IOrderServicePort {
     }
 
     @Override
-    public Page<Order> getOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
+    public Page<OrderResponse> getOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
         return orderPersistencePort.findOrdersByStatus(status, page, size, restaurantId);
     }
 
@@ -93,15 +99,38 @@ public class OrderUseCase implements IOrderServicePort {
     public void assignOrder(Long orderId, Long restaurantId, Long employeeId) {
         Order order = orderPersistencePort.findById(orderId);
         if (order == null) {
-            throw new NotFoundException(ORDER_NOT_FOUND);
+            throw new NotFoundException("El pedido no fue encontrado.");
         }
 
         if (!order.getRestaurantId().equals(restaurantId)) {
-            throw new IllegalArgumentException(ORDER_NOT_FOUND);
+            throw new IllegalArgumentException("El pedido no pertenece al restaurante del empleado.");
         }
 
-        order.setSelectedDishes(null);
         order.setEmployeeIdAssigned(employeeId);
+        order.setSelectedDishes(null);
         orderPersistencePort.save(order);
+    }
+
+    @Override
+    public void changeOrderStatus(Long orderId, Long userId, OrderStatus status) {
+        Order order = orderPersistencePort.findById(orderId);
+        if (order == null) {
+            throw new NotFoundException(ORDER_NOT_FOUND);
+        }
+
+        if (order.getEmployeeIdAssigned() == null) {
+            throw new IllegalArgumentException(NO_EMPLOYEE);
+        }
+
+        if (!order.getEmployeeIdAssigned().equals(userId)) {
+            throw new IllegalArgumentException(EMPLOYEE_NOT_ASSIGNED);
+        }
+
+        if (order.getStatus() == OrderStatus.CANCELED) {
+            throw new IllegalArgumentException(CANCELLED_ORDER);
+        }
+
+        order.setStatus(status);
+        orderPersistencePort.updateOrderStatus(orderId, status);
     }
 }

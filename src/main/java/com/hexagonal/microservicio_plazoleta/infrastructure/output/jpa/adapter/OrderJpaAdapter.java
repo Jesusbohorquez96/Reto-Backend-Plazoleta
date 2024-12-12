@@ -1,5 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.adapter;
 
+import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.domain.model.Order;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IOrderPersistencePort;
@@ -41,10 +42,10 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     }
 
     @Override
-    public Page<Order> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
+    public Page<OrderResponse> findOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<OrderEntity> orderEntities = orderRepository.findByStatusAndRestaurantId(status, restaurantId, pageRequest);
-        return orderEntities.map(orderEntityMapper::toDomainWithBasicFields);
+        return orderEntities.map(orderEntityMapper::toDomainStatus);
     }
 
     @Override
@@ -58,5 +59,13 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     public void save(Order order) {
         OrderEntity entity = orderEntityMapper.toEntity(order);
         orderRepository.save(entity);
+    }
+
+    @Override
+    public void updateOrderStatus(Long orderId, OrderStatus status) {
+        OrderEntity orderEntity = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException(ORDER_NOT_FOUND + orderId));
+        orderEntity.setStatus(status);
+        orderRepository.save(orderEntity);
     }
 }

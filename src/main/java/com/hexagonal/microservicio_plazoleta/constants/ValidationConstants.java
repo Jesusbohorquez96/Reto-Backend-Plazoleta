@@ -58,6 +58,8 @@ public class ValidationConstants {
     public static final String NIT_NAME = "The restaurant NIT must be unique.";
     public static final String ROLE =  "ROLE_";
     public static final String INVALID_JWT = "Invalid or malformed JWT token";
+    public static final String PLATE_ID = "The plate with ID";
+    public static final String DOES_NOT_HAVE_ASSIGNED_RESTAURANT = "does not have an assigned restaurant.";
 
     public static final String OWNER_NOT_DISH = "You are not the owner of this dish.";
     public static final String DISH_NOT_FOUND = "Dishes not found";
@@ -82,7 +84,6 @@ public class ValidationConstants {
     public static final String ERROR_HANDLER = "An unexpected error occurred while processing the request";
     public static final String ORDER_MUST_DISH = "An order must contain at least one dish.";
     public static final String RESTAURANT_NOT_EXIST = "The specified restaurant does not exist.";
-    public static final String USER_SECURITY = "User ID is missing in the security context";
     public static final String DISH_NOT_FOUNT = "Dish not found";
     public static final String DISH_NOT_FOUNT_ID = "Dish not found: ID ";
     public static final String DISH_NOT_ACTIVE = "Dish is not active: ID ";
@@ -112,7 +113,12 @@ public class ValidationConstants {
     public static final String ROL_EMPLOYEE = "hasAnyRole('empleado')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
 
-    public static final String OWNER_SECURITY = "Owner ID is missing in the security context";
+    public static final String OWNER_NOT_VALID = "The specified owner is invalid.";
+    public static final String EMPLOYEE_NOT_VALID_PERMISSIONS = "The employee is not valid or does not have permissions for this action.";
+    public static final String EMPLOYEE_NOT_VALID = "The employee is not valid or does not belong to a restaurant.";
+    public static final String RESTAURANT_ID_REQUIRED = "The restaurant ID is mandatory.";
+    public static final String ORDER_MUST_DISH_SELECTED = "The order must contain at least one selected dish.";
+
     public static final String ORDER_NOT_FOUND = "Order not found with ID: ";
     public static final String ASSIGN_EMPLOYEE = "/{orderId}/assign";
     public static final String SELECTED_DISHES_REQUIRED = "Selected dishes are required";
@@ -124,7 +130,13 @@ public class ValidationConstants {
     public static final String CHECK = "/check";
     public static final String SEND = "/send";
     public static final String ID = "id";
+    public static final String CHANGE_STATUS = "/change-status/{orderId}";
+    public static final String CANCELLED_ORDER = "You cannot change the status of a cancelled order.";
+    public static final String EMPLOYEE_NOT_ASSIGNED = "The employee is not assigned to this order.";
 
+    public static final String USER_ID_INVALID = "The authenticated user ID is invalid.";
+    public static final String USER_NOT_AUTHENTICATED = "The user is not authenticated.";
+    public static final String NO_EMPLOYEE = "There is no employee assigned to this order.";
 
     public static final String MICROSERVICES_USERS = "microservices-users";
     public static final String HTTP_USERS = "http://localhost:8081/users";
