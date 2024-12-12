@@ -7,14 +7,16 @@ import org.springframework.data.jpa.repository.*;
 
 import java.util.Optional;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
 public interface IDishesRepository extends JpaRepository<DishesEntity, Long> {
 
     @Query("SELECT d FROM DishesEntity d JOIN d.restaurant r WHERE d.id = :dishId")
-    Optional<DishesEntity> findByIdWithOwner(@Param("dishId") Long dishId);
+    Optional<DishesEntity> findByIdWithOwner(@Param(DISH_ID) Long dishId);
 
     @Modifying
     @Query("UPDATE DishesEntity d SET d.active = :active WHERE d.id = :dishId")
-    void updateActiveStatus(@Param("dishId") Long dishId, @Param("active") Boolean active);
+    void updateActiveStatus(@Param(DISH_ID) Long dishId, @Param(ACTIVE) Boolean active);
 
     Page<DishesEntity> findByRestaurantId(Long restaurantId, Pageable pageable);
 

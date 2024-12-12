@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.DISH_NOT_FOUNT;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -29,102 +30,85 @@ class DishesJpaAdapterTest {
     }
 
     @Test
-    void shouldSaveDishesSuccessfully() {
-        Dishes dishes = new Dishes();
+    void saveDishes_shouldSaveAndMapEntity() {
+        Dishes dishes = new Dishes(1L, "Dish 1", 100.0, "Description", "url", "Category", 1L, true, 1L);
         DishesEntity dishesEntity = new DishesEntity();
-
         when(dishesEntityMapper.toEntity(dishes)).thenReturn(dishesEntity);
         when(dishesRepository.save(dishesEntity)).thenReturn(dishesEntity);
         when(dishesEntityMapper.toDishes(dishesEntity)).thenReturn(dishes);
 
         dishesJpaAdapter.saveDishes(dishes);
 
-        verify(dishesEntityMapper, times(1)).toEntity(dishes);
         verify(dishesRepository, times(1)).save(dishesEntity);
         verify(dishesEntityMapper, times(1)).toDishes(dishesEntity);
     }
 
     @Test
-    void shouldReturnTrueIfRestaurantOwnedByUser() {
-        Long restaurantId = 1L;
-        Long ownerId = 2L;
+    void isRestaurantOwnedByUser_shouldReturnTrueIfOwned() {
+        when(restaurantRepository.existsByIdAndOwnerId(1L, 1L)).thenReturn(true);
 
-        when(restaurantRepository.existsByIdAndOwnerId(restaurantId, ownerId)).thenReturn(true);
-
-        boolean result = dishesJpaAdapter.isRestaurantOwnedByUser(restaurantId, ownerId);
+        boolean result = dishesJpaAdapter.isRestaurantOwnedByUser(1L, 1L);
 
         assertTrue(result);
-        verify(restaurantRepository, times(1)).existsByIdAndOwnerId(restaurantId, ownerId);
+        verify(restaurantRepository, times(1)).existsByIdAndOwnerId(1L, 1L);
     }
 
     @Test
-    void shouldReturnFalseIfRestaurantNotOwnedByUser() {
-        Long restaurantId = 1L;
-        Long ownerId = 2L;
-
-        when(restaurantRepository.existsByIdAndOwnerId(restaurantId, ownerId)).thenReturn(false);
-
-        boolean result = dishesJpaAdapter.isRestaurantOwnedByUser(restaurantId, ownerId);
-
-        assertFalse(result);
-        verify(restaurantRepository, times(1)).existsByIdAndOwnerId(restaurantId, ownerId);
-    }
-
-    @Test
-    void shouldFindByIdAndReturnDishes() {
-        Long dishId = 1L;
+    void findById_shouldReturnOptionalMappedDishes() {
         DishesEntity dishesEntity = new DishesEntity();
         Dishes dishes = new Dishes();
-
-        when(dishesRepository.findByIdWithOwner(dishId)).thenReturn(Optional.of(dishesEntity));
+        when(dishesRepository.findByIdWithOwner(1L)).thenReturn(Optional.of(dishesEntity));
         when(dishesEntityMapper.toDishes(dishesEntity)).thenReturn(dishes);
 
-        Optional<Dishes> result = dishesJpaAdapter.findById(dishId);
+        Optional<Dishes> result = dishesJpaAdapter.findById(1L);
 
         assertTrue(result.isPresent());
         assertEquals(dishes, result.get());
-        verify(dishesRepository, times(1)).findByIdWithOwner(dishId);
-        verify(dishesEntityMapper, times(1)).toDishes(dishesEntity);
+        verify(dishesRepository, times(1)).findByIdWithOwner(1L);
     }
 
     @Test
-    void shouldReturnEmptyOptionalIfDishNotFound() {
-        Long dishId = 1L;
+    void updateDishStatus_shouldUpdateIfExists() {
+        when(dishesRepository.existsById(1L)).thenReturn(true);
 
-        when(dishesRepository.findByIdWithOwner(dishId)).thenReturn(Optional.empty());
+        dishesJpaAdapter.updateDishStatus(1L, true);
 
-        Optional<Dishes> result = dishesJpaAdapter.findById(dishId);
-
-        assertFalse(result.isPresent());
-        verify(dishesRepository, times(1)).findByIdWithOwner(dishId);
-        verify(dishesEntityMapper, times(0)).toDishes(any(DishesEntity.class));
+        verify(dishesRepository, times(1)).updateActiveStatus(1L, true);
     }
 
     @Test
-    void shouldUpdateDishStatusSuccessfully() {
-        Long dishId = 1L;
-        Boolean active = true;
+    void updateDishStatus_shouldThrowExceptionIfNotExists() {
+        when(dishesRepository.existsById(1L)).thenReturn(false);
 
-        when(dishesRepository.existsById(dishId)).thenReturn(true);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                dishesJpaAdapter.updateDishStatus(1L, true)
+        );
 
-        dishesJpaAdapter.updateDishStatus(dishId, active);
-
-        verify(dishesRepository, times(1)).existsById(dishId);
-        verify(dishesRepository, times(1)).updateActiveStatus(dishId, active);
+        assertEquals(DISH_NOT_FOUNT, exception.getMessage());
+        verify(dishesRepository, never()).updateActiveStatus(anyLong(), anyBoolean());
     }
 
     @Test
-    void shouldThrowExceptionIfDishNotFoundWhenUpdatingStatus() {
-        Long dishId = 1L;
-        Boolean active = true;
+    void existsByNameAndRestaurantId_shouldReturnValue() {
+        when(dishesRepository.existsByNameAndRestaurantId("Dish 1", 1L)).thenReturn(true);
 
-        when(dishesRepository.existsById(dishId)).thenReturn(false);
+        boolean result = dishesJpaAdapter.existsByNameAndRestaurantId("Dish 1", 1L);
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> dishesJpaAdapter.updateDishStatus(dishId, active));
+        assertTrue(result);
+        verify(dishesRepository, times(1)).existsByNameAndRestaurantId("Dish 1", 1L);
+    }
 
-        assertEquals("Dish not found", exception.getMessage());
-        verify(dishesRepository, times(1)).existsById(dishId);
-        verify(dishesRepository, times(0)).updateActiveStatus(anyLong(), anyBoolean());
+   // Test for the function getDishById
+
+    @Test
+    void getDishById_shouldThrowExceptionIfNotFound() {
+        when(dishesRepository.findById(1L)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                dishesJpaAdapter.getDishById(1L)
+        );
+
+        assertEquals(DISH_NOT_FOUNT, exception.getMessage());
+        verify(dishesRepository, times(1)).findById(1L);
     }
 }

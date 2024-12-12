@@ -32,6 +32,9 @@ public class OrderEntity {
     @Column(nullable = false)
     private OrderStatus status;
 
-    @OneToMany(mappedBy = ORDER, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Column
+    private Long employeeIdAssigned;
+
+    @OneToMany(mappedBy = ORDER, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SelectedDishesEntity> selectedDishes;
 }

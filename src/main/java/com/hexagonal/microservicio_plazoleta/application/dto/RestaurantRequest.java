@@ -2,7 +2,6 @@ package com.hexagonal.microservicio_plazoleta.application.dto;
 
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
-
 import javax.validation.constraints.*;
 
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
@@ -34,4 +33,6 @@ public class RestaurantRequest {
     @NotNull(message = OWNER_REQUIRED)
     private Long ownerId;
 
+    public RestaurantRequest(String restaurantA, String number, String address, String owner) {
+    }
 }

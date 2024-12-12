@@ -7,15 +7,14 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.Or
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.OrderEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class OrderJpaAdapter implements IOrderPersistencePort {
 
     private final OrderRepository orderRepository;
@@ -36,7 +35,7 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     @Override
     public void deleteOrder(Long orderId) {
         if (!orderRepository.existsById(orderId)) {
-            throw new IllegalArgumentException("Order not found with ID: " + orderId);
+            throw new IllegalArgumentException(ORDER_NOT_FOUND + orderId);
         }
         orderRepository.deleteById(orderId);
     }
@@ -46,5 +45,18 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<OrderEntity> orderEntities = orderRepository.findByStatusAndRestaurantId(status, restaurantId, pageRequest);
         return orderEntities.map(orderEntityMapper::toDomainWithBasicFields);
+    }
+
+    @Override
+    public Order findById(Long orderId) {
+        OrderEntity orderEntity = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException(ORDER_NOT_FOUND + orderId));
+        return orderEntityMapper.toDomainWithBasicFields(orderEntity);
+    }
+
+    @Override
+    public void save(Order order) {
+        OrderEntity entity = orderEntityMapper.toEntity(order);
+        orderRepository.save(entity);
     }
 }

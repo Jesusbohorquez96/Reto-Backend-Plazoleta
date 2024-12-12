@@ -1,9 +1,14 @@
 package com.hexagonal.microservicio_plazoleta.application.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
 public class IdRestaurantResponse {
 
     private Long restaurantId;
     private Long ownerId;
+
 
 
     public IdRestaurantResponse(Long restaurantId) {
@@ -25,4 +30,6 @@ public class IdRestaurantResponse {
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
+
+
 }

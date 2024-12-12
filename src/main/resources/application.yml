@@ -32,4 +32,5 @@ spring:
     config:
       enabled: false
 
+
 debug: true

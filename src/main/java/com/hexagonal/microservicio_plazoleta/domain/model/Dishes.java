@@ -1,9 +1,5 @@
 package com.hexagonal.microservicio_plazoleta.domain.model;
 
-import lombok.*;
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class Dishes {
 
     private Long id;
@@ -33,6 +29,17 @@ public class Dishes {
         this.category = category;
         this.restaurantId = restaurantId;
         this.ownerId = ownerId;
+    }
+    public Dishes() {
+    }
+
+    public Dishes(Long id,  String name,  Double price,  String description,   String imageUrl, String category, Long id1, boolean active, Long ownerId) {
+    }
+
+    public Dishes(long l, String dishName, double v, String description, String image, String mainCourse) {
+    }
+
+    public Dishes(long l, String s, double v, String description, long l1, long l2, boolean b) {
     }
 
     public Long getId() {

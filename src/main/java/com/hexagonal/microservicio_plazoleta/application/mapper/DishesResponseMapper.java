@@ -5,7 +5,9 @@ import com.hexagonal.microservicio_plazoleta.domain.model.Dishes;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring",
+import static org.mapstruct.MappingConstants.ComponentModel.*;
+
+@Mapper(componentModel = SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface DishesResponseMapper {

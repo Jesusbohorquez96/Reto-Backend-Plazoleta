@@ -6,12 +6,14 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "microservices-users", url = "http://localhost:8081/users")
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
+@FeignClient(name = MICROSERVICES_USERS, url = HTTP_USERS)
 public interface UsersClient {
 
-    @GetMapping("/validate-owner/{ownerId}")
-    OwnerResponse validateOwner(@PathVariable("ownerId") Long ownerId);
+    @GetMapping(VALIDATE_OWNER)
+    OwnerResponse validateOwner(@PathVariable(ID_OWNER) Long ownerId);
 
-    @GetMapping("/validate-employee/{employeeId}")
-    EmployeeRestaurantIdResponse validateEmployee(@PathVariable("employeeId") Long employeeId);
+    @GetMapping(VALIDATE_EMPLOYEE)
+    EmployeeRestaurantIdResponse validateEmployee(@PathVariable(EMPLOYEE_ID) Long employeeId);
 }

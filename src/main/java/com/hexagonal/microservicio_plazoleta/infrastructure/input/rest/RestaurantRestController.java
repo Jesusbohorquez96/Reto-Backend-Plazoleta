@@ -2,7 +2,7 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.input.rest;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.*;
 import com.hexagonal.microservicio_plazoleta.application.handler.IRestaurantHandler;
-import com.hexagonal.microservicio_plazoleta.domain.api.UsersClientService;
+import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services.UsersClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +45,7 @@ public class RestaurantRestController {
     public Page<ListRestaurantResponse> listRestaurants(Pageable pageable) {
         return restaurantHandler.listRestaurants(pageable);
     }
-    @GetMapping("/{id}")
+    @GetMapping(ROOD_ID)
     public ResponseEntity<IdRestaurantResponse> getRestaurantById(@PathVariable Long id) {
 
         return ResponseEntity.ok(restaurantHandler.getRestaurantById(id));

@@ -35,7 +35,7 @@ public class RestaurantUseCase implements IRestaurantServicePort {
 
     @Override
     public Restaurant getRestaurantById(Long id) {
-        return restaurantPersistencePort.getRestaurantById(id).orElseThrow(() -> new IllegalArgumentException("NOT_FOUND"));
+        return restaurantPersistencePort.getRestaurantById(id).orElseThrow(() -> new IllegalArgumentException(RESTAURANT_NOT_FOUND));
     }
 }
 

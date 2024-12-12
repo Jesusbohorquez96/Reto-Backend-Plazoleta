@@ -7,14 +7,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring",
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Mapper(componentModel = SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface RestaurantResponseMapper {
 
     RestaurantResponse toRestaurantResponse(Restaurant entity);
 
-    @Mapping(source = "id", target = "restaurantId")
-    @Mapping(source = "ownerId", target = "ownerId")
+    @Mapping(source = ID, target = RESTAURANT_ID_MAPPER)
+    @Mapping(source = ID_OWNER, target = ID_OWNER)
     IdRestaurantResponse toIdResponse(Restaurant restaurantId);
 }

@@ -12,4 +12,6 @@ public interface IOrderHandler {
     Long createOrderForUser(Long userId, OrderRequest orderRequest);
 
     Page<OrderResponse> getOrdersByStatus (OrderStatus status, int page, int size, Long restaurantId);
+
+    void assignOrder(Long orderId, Long restaurantId, Long employeeId);
 }

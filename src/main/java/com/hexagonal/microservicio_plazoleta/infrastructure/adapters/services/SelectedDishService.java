@@ -1,4 +1,4 @@
-package com.hexagonal.microservicio_plazoleta.domain.api;
+package com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.SelectedValidator;
@@ -8,7 +8,6 @@ import com.hexagonal.microservicio_plazoleta.domain.model.SelectedDish;
 import com.hexagonal.microservicio_plazoleta.domain.spi.SelectedDishPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

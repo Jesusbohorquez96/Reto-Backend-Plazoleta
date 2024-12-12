@@ -1,11 +1,10 @@
 package com.hexagonal.microservicio_plazoleta.infrastructure.configuration;
 
 import com.hexagonal.microservicio_plazoleta.domain.api.IOrderServicePort;
-import com.hexagonal.microservicio_plazoleta.domain.api.SelectedDishService;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IOrderPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.spi.IDishesPersistencePort;
-import com.hexagonal.microservicio_plazoleta.domain.spi.SelectedDishPersistencePort;
 import com.hexagonal.microservicio_plazoleta.domain.usecase.OrderUseCase;
+import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services.SelectedDishService;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.adapter.OrderJpaAdapter;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.OrderEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.OrderRepository;

@@ -1,7 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.domain.model;
 
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
-
 import java.util.List;
 
 public class Order {
@@ -11,20 +10,18 @@ public class Order {
     private Long userId;
     private OrderStatus status;
     private List<SelectedDish> selectedDishes;
+    private Long employeeIdAssigned;
 
-    public Order(Long id, Long restaurantId, Long userId, OrderStatus status, List<SelectedDish> selectedDishes) {
+    public Order(Long id, Long restaurantId, Long userId, OrderStatus status, List<SelectedDish> selectedDishes, Long employeeIdAssigned) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.userId = userId;
         this.status = status;
         this.selectedDishes = selectedDishes;
+        this.employeeIdAssigned = employeeIdAssigned;
     }
 
     public Order() {
-
-    }
-
-    public Order(Long id, Long restaurantId, OrderStatus status, Long userId) {
     }
 
     public Long getId() {
@@ -67,6 +64,14 @@ public class Order {
         this.selectedDishes = selectedDishes;
     }
 
+    public Long getEmployeeIdAssigned() {
+        return employeeIdAssigned;
+    }
+
+    public void setEmployeeIdAssigned(Long employeeIdAssigned) {
+        this.employeeIdAssigned = employeeIdAssigned;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -75,6 +80,7 @@ public class Order {
                 ", userId=" + userId +
                 ", status=" + status +
                 ", selectedDishes=" + selectedDishes +
+                ", employeeIdAssigned=" + employeeIdAssigned +
                 '}';
     }
 }

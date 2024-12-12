@@ -6,11 +6,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring",
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Mapper(componentModel = SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface RestaurantRequestMapper {
 
-    @Mapping(target = "ownerId", source = "ownerId")
+    @Mapping(target = ID_OWNER, source = ID_OWNER)
     Restaurant toRestaurant(RestaurantRequest restaurantRequest);
 }

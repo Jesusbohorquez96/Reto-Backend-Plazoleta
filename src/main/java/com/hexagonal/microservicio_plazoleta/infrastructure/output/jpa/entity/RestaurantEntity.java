@@ -3,8 +3,10 @@ package com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity;
 import lombok.*;
 import javax.persistence.*;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
 @Entity
-@Table(name = "restaurant")
+@Table(name = ID_RESTAURANT)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

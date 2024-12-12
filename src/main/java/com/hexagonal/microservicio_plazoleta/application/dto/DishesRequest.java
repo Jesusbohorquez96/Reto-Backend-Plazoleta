@@ -2,7 +2,6 @@ package com.hexagonal.microservicio_plazoleta.application.dto;
 
 import lombok.*;
 import javax.validation.constraints.*;
-
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Data
@@ -31,4 +30,6 @@ public class DishesRequest {
     @NotNull(message = RESTAURANT_REQUIRED)
     private Long restaurantId;
 
+    public DishesRequest(String s, double v, String description, String url, String category, long l) {
+    }
 }

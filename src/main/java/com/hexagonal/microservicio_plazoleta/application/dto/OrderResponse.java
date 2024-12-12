@@ -1,7 +1,6 @@
 package com.hexagonal.microservicio_plazoleta.application.dto;
 
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
-
 import java.util.List;
 
 public class OrderResponse {
@@ -18,6 +17,10 @@ public class OrderResponse {
         this.userId = userId;
         this.status = status;
         this.selectedDishes = selectedDishes;
+    }
+
+    public OrderResponse() {
+
     }
 
     public Long getId() {

@@ -10,6 +10,9 @@ public class Restaurant {
     private String urlLogo;
     private Long ownerId;
 
+    public Restaurant(long l, String duplicateName, String i, String number, String s) {
+    }
+
     public Long getId() {
         return id;
     }

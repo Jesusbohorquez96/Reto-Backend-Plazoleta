@@ -1,4 +1,4 @@
-package com.hexagonal.microservicio_plazoleta.domain.api;
+package com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services;
 
 import com.hexagonal.microservicio_plazoleta.application.dto.EmployeeRestaurantIdResponse;
 import com.hexagonal.microservicio_plazoleta.application.dto.OwnerResponse;

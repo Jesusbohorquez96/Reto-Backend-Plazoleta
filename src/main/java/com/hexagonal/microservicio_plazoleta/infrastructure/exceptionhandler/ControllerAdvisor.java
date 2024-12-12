@@ -104,7 +104,7 @@ public class ControllerAdvisor {
         Map<String, Object> response = new HashMap<>();
         response.put(STATUS, HttpStatus.BAD_REQUEST.value());
         response.put(MESSAGE, ex.getMessage());
-        response.put("dishId", ex.getDishId());
+        response.put(DISH_ID, ex.getDishId());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }

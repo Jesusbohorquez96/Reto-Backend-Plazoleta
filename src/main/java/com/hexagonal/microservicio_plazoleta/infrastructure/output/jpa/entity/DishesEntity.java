@@ -7,8 +7,8 @@ import javax.validation.constraints.*;
 import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
 
 @Entity
-@Table(name = "dishes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "restaurant_id"})
+@Table(name = DISHES_TES, uniqueConstraints = {
+        @UniqueConstraint(columnNames = {NAME, RESTAURANT_ID})
 })
 @NoArgsConstructor
 @AllArgsConstructor

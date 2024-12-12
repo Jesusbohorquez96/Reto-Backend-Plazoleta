@@ -4,9 +4,11 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
+import static com.hexagonal.microservicio_plazoleta.constants.ValidationConstants.*;
+
 @Data
 public class DishStatusUpdateRequest {
 
-    @NotNull(message = "The active status must not be null.")
+    @NotNull(message = ACTIVE_STATUS)
     private Boolean active;
 }

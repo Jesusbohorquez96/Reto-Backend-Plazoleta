@@ -6,12 +6,10 @@ import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.entity.Re
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.hexagonal.microservicio_plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.data.domain.*;
 
 import java.util.Optional;
 
-@CommonsLog
 @RequiredArgsConstructor
 public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
 
@@ -43,7 +41,6 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
 
     @Override
     public Optional<Restaurant> getRestaurantById(Long id) {
-        log.info("getRestaurantById: " + restaurantRepository.findById(id));
         return restaurantRepository.findById(id)
                 .map(restaurantEntityMapper::toRestaurant);
     }

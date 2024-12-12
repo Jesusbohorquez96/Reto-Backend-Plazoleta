@@ -3,7 +3,7 @@ package com.hexagonal.microservicio_plazoleta.domain.usecase;
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import com.hexagonal.microservicio_plazoleta.domain.api.IOrderServicePort;
-import com.hexagonal.microservicio_plazoleta.domain.api.SelectedDishService;
+import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services.SelectedDishService;
 import com.hexagonal.microservicio_plazoleta.domain.model.Dishes;
 import com.hexagonal.microservicio_plazoleta.domain.model.Order;
 import com.hexagonal.microservicio_plazoleta.domain.model.SelectedDish;
@@ -87,5 +87,21 @@ public class OrderUseCase implements IOrderServicePort {
     @Override
     public Page<Order> getOrdersByStatus(OrderStatus status, int page, int size, Long restaurantId) {
         return orderPersistencePort.findOrdersByStatus(status, page, size, restaurantId);
+    }
+
+    @Override
+    public void assignOrder(Long orderId, Long restaurantId, Long employeeId) {
+        Order order = orderPersistencePort.findById(orderId);
+        if (order == null) {
+            throw new NotFoundException(ORDER_NOT_FOUND);
+        }
+
+        if (!order.getRestaurantId().equals(restaurantId)) {
+            throw new IllegalArgumentException(ORDER_NOT_FOUND);
+        }
+
+        order.setSelectedDishes(null);
+        order.setEmployeeIdAssigned(employeeId);
+        orderPersistencePort.save(order);
     }
 }

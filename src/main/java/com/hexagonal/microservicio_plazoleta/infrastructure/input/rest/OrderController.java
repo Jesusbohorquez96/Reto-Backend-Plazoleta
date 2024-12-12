@@ -4,7 +4,7 @@ import com.hexagonal.microservicio_plazoleta.application.dto.EmployeeRestaurantI
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderRequest;
 import com.hexagonal.microservicio_plazoleta.application.dto.OrderResponse;
 import com.hexagonal.microservicio_plazoleta.application.handler.IOrderHandler;
-import com.hexagonal.microservicio_plazoleta.domain.api.UsersClientService;
+import com.hexagonal.microservicio_plazoleta.infrastructure.adapters.services.UsersClientService;
 import com.hexagonal.microservicio_plazoleta.infrastructure.exception.DishValidationException;
 import com.hexagonal.microservicio_plazoleta.infrastructure.utils.OrderStatus;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,10 +75,31 @@ public class OrderController {
         }
         EmployeeRestaurantIdResponse employee = usersClientService.validateEmployee(Long.valueOf(userId));
         if (employee == null) {
-            throw new IllegalArgumentException("OWNER_SECURITY");
+            throw new IllegalArgumentException(OWNER_SECURITY);
         }
         Page<OrderResponse> orders = orderHandler.getOrdersByStatus(status, page, size, employee.getRestaurantId());
 
         return ResponseEntity.ok(orders);
+    }
+
+    @Operation(
+            summary = "Assign order to restaurant employee",
+            description = "Assign an order to a restaurant employee for preparation"
+    )
+    @PreAuthorize(ROL_EMPLOYEE)
+    @PutMapping(ASSIGN_EMPLOYEE)
+    public ResponseEntity<String> assignOrder(
+            @PathVariable Long orderId
+    ) {
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userId == null) {
+            throw new IllegalArgumentException(USER_SECURITY);
+        }
+        EmployeeRestaurantIdResponse employee = usersClientService.validateEmployee(Long.valueOf(userId));
+        if (employee == null) {
+            throw new IllegalArgumentException(OWNER_SECURITY);
+        }
+        orderHandler.assignOrder(orderId, employee.getRestaurantId(), Long.valueOf(userId));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

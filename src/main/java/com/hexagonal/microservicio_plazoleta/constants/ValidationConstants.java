@@ -2,22 +2,17 @@ package com.hexagonal.microservicio_plazoleta.constants;
 
 public class ValidationConstants {
 
-    public static final long TIME = 1000 * 60 * 60 * 24;
-
     public static final int ZERO = 0;
-    public static final int DECIMALS = 2;
     public static final int SEVEN = 7;
-    public static final int INTEGERS = 10;
-    public static final int MAYOR = 18;
     public static final int MAX_NIT = 20;
-    public static final int NAME_MAX_LENGTH = 50;
-    public static final int EMAIL_MAX_LENGTH = 50;
-    public static final int DESCRIPTION_MAX_LENGTH = 90;
     public static final int MAX_LENGTH = 120;
 
     public static final String ZERO_S = "0";
     public static final String INTEGERS_S = "10";
 
+    public static final String EMPLOYEE_ID = "employeeId";
+    public static final String DISHES_TES = "dishes";
+    public static final String NAME = "name";
     public static final String ROL = "rol";
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
@@ -55,6 +50,8 @@ public class ValidationConstants {
     public static final String ORDER_ID = "order_id";
     public static final String ORDER = "order";
     public static final String ORDERS = "orders";
+    public static final String ACTIVE = "active";
+    public static final String DISH_ID = "dishId";
 
     public static final String CATEGORY_REQUIRED = "The category of the dish is mandatory.";
     public static final String UNIQUE_NAME = "The restaurant name must be unique.";
@@ -69,7 +66,6 @@ public class ValidationConstants {
     public static final String SWAGGER_UI_RESOURCES = "/swagger-ui/**";
     public static final String AUTH = "/auth/**";
     public static final String ALL_API = "/api/**";
-    public static final String ALL_API_DISHES = "/api/selected-dishes";
     public static final String API_ORDERS = "/api/orders";
     public static final String GET_RESTAURANT_ID = "/restaurant/{restaurantId}";
 
@@ -116,6 +112,26 @@ public class ValidationConstants {
     public static final String ROL_EMPLOYEE = "hasAnyRole('empleado')";
     public static final String ROLE_AUT_ALL = "ROLE_propietario";
 
+    public static final String OWNER_SECURITY = "Owner ID is missing in the security context";
+    public static final String ORDER_NOT_FOUND = "Order not found with ID: ";
+    public static final String ASSIGN_EMPLOYEE = "/{orderId}/assign";
+    public static final String SELECTED_DISHES_REQUIRED = "Selected dishes are required";
+    public static final String ACTIVE_STATUS = "The active status must not be null.";
+    public static final String DESCRIPTION = "Description is required.";
+    public static final String PRICE_POSITIVE = "The price must be positive.";
+    public static final String RESTAURANT_NOT_FOUND = "Restaurant not found";
+
+    public static final String CHECK = "/check";
+    public static final String SEND = "/send";
+    public static final String ID = "id";
+
+
+    public static final String MICROSERVICES_USERS = "microservices-users";
+    public static final String HTTP_USERS = "http://localhost:8081/users";
+    public static final String HTTP_MESSAGE = "http://localhost:8083/api/verify";
+    public static final String MICROSERVICES_MESSAGING = "microservices-messaging";
+    public static final String VALIDATE_OWNER = "/validate-owner/{ownerId}";
+    public static final String VALIDATE_EMPLOYEE = "/validate-employee/{employeeId}";
 
     public static final String JSON = "application/json";
     public static final String ERROR_JWT = "{ \"error\": \"Access denied: Invalid or malformed JWT token\" }";

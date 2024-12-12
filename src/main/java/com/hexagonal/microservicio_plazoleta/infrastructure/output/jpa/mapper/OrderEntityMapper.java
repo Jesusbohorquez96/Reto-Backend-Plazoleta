@@ -21,10 +21,10 @@ public interface OrderEntityMapper {
     @Mapping(target = SELECTED_DISHES, source = SELECTED_DISHES)
     OrderEntity toEntity(Order order);
 
-    @Mapping(target = "selectedDishes", source = "selectedDishes")
+    @Mapping(target = SELECTED_DISHES, source = SELECTED_DISHES)
     Order toDomainWithBasicFields(OrderEntity orderEntity);
 
-    @Mapping(target = "order", ignore = true)
+    @Mapping(target = ORDER, ignore = true)
     SelectedDish toDomain(SelectedDishesEntity selectedDishesEntity);
 
     List<SelectedDish> toDomainList(List<SelectedDishesEntity> selectedDishesEntities);
